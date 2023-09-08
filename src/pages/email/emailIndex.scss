@@ -1,0 +1,10 @@
+@import '../../assets/css/index.scss';
+
+.email-index{
+    height: calc(100vh - 57px);
+    display: flex;
+
+    .container{
+        width: 100%;
+    }
+}

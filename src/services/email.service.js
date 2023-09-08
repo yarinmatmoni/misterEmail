@@ -44,8 +44,6 @@ function createEmail(
   body,
   isRead,
   isStarred,
-  sentAt,
-  removedAt = null,
   from,
   to
 ) {
@@ -55,8 +53,8 @@ function createEmail(
     body: body || "Body",
     isRead: isRead || false,
     isStarred: isStarred || false,
-    sentAt: sentAt || 1551133930594,
-    removedAt: removedAt,
+    sentAt: new Date().getTime() || 1551133930594,
+    removedAt: null,
     from: from || "momo@momo.com",
     to: to || "user@appsus.com",
   };
@@ -65,10 +63,12 @@ function createEmail(
 function _createEmails() {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
   if (!emails || !emails.length) {
-    for (let i = 0; i < 3; i++)
-      emails.push(
-        createEmail("Miss You!" + i, "Body - Miss You  + i", false, false)
-      );
+    emails = [];
+    
+    for (let i = 0; i < 3; i++){
+      let mail = createEmail("Miss You!" + i, "Body - Miss You  + i",false,false);
+      emails.push(mail);
+    }
 
     utilService.saveToStorage(STORAGE_KEY, emails);
   }

@@ -1,0 +1,18 @@
+@import '../../assets/css/index.scss';
+
+.email-filter{
+    background-color: $background-color;
+    height: $email-filter;
+    display: flex;
+    align-items: center;
+
+    input{
+        width: 250px;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        padding: 8px 16px;
+        font-size: 16px;
+        background-color: $background-color-input;
+    }
+}
