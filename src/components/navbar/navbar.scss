@@ -1,0 +1,16 @@
+@import '../../assets/css/index.scss';
+
+.navbar-container{
+  display: flex;
+  gap: 15px;
+  width: fit-content;
+
+  a{
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover, &.active {
+      color: $text-color-active;
+    }
+  }
+}
