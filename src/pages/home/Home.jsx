@@ -1,6 +1,11 @@
+import './home.scss';
+
 export const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
-
+    <div className="homePage">
+      <div className="main-container">
+        <h1>Mister Email</h1>
+      </div>
+    </div>
+  );
+};

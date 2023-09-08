@@ -1,12 +1,12 @@
-import { storageService } from "./async-storage.service.js";
-import { utilService } from "./util.service.js";
+import { storageService } from "./async-storage.service";
+import { utilService } from "./util.service";
 
-export const robotService = {
+export const emailService = {
   query,
-//   save,
-//   remove,
-//   getById,
-//   createRobot,
+  //   save,
+  //   remove,
+  //   getById,
+  //   createRobot,
 };
 
 const STORAGE_KEY = "emails";
@@ -14,12 +14,12 @@ const STORAGE_KEY = "emails";
 _createEmails();
 
 async function query(filterBy) {
-    const emails = await storageService.query(STORAGE_KEY)
-    if (filterBy) {
-        console.log('filterBy function');
-        return emails
-    }
-    return emails
+  const emails = await storageService.query(STORAGE_KEY);
+  if (filterBy) {
+    console.log("filterBy function");
+    return emails;
+  }
+  return emails;
 }
 
 // function getById(id) {
@@ -39,41 +39,37 @@ async function query(filterBy) {
 //     }
 // }
 
-// function createRobot(model = '', type = '', batteryStatus = 100) {
-//     return {
-//         model,
-//         batteryStatus,
-//         type
-//     }
-// }
+function createEmail(
+  subject,
+  body,
+  isRead,
+  isStarred,
+  sentAt,
+  removedAt = null,
+  from,
+  to
+) {
+  return {
+    id: utilService.makeId(),
+    subject: subject || "Subject",
+    body: body || "Body",
+    isRead: isRead || false,
+    isStarred: isStarred || false,
+    sentAt: sentAt || 1551133930594,
+    removedAt: removedAt,
+    from: from || "momo@momo.com",
+    to: to || "user@appsus.com",
+  };
+}
 
 function _createEmails() {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
   if (!emails || !emails.length) {
-    emails = [
-      {
-        id: "e101",
-        subject: "Miss You!",
-        body: "Would love to catch up sometimes",
-        isRead: false,
-        isStarred: false,
-        sentAt: 1551133930594,
-        removedAt: null,
-        from: "momo@momo.com",
-        to: "user@appsus.com",
-      },
-      {
-        id: "e102",
-        subject: "Miss You Too!!",
-        body: "new body",
-        isRead: true,
-        isStarred: false,
-        sentAt: 1551133930594,
-        removedAt: null,
-        from: "user@appsus.com",
-        to: "momo@momo.com",
-      },
-    ];
+    for (let i = 0; i < 3; i++)
+      emails.push(
+        createEmail("Miss You!" + i, "Body - Miss You  + i", false, false)
+      );
+
     utilService.saveToStorage(STORAGE_KEY, emails);
   }
 }
