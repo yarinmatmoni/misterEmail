@@ -20,13 +20,22 @@ export const EmailIndex = () => {
     }
   };
 
+  const onRemoveEmail = async (emailId) => {
+    try {
+      await emailService.remove(emailId);
+      setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+
   if (!emails) return <div>Loading..</div>;
   return (
     <div className="email-index">
       <div>EmailFolderList</div>
       <div className="container">
         <EmailFilter />
-        <EmailList emails={emails}/>
+        <EmailList emails={emails} onRemoveEmail={onRemoveEmail}/>
       </div>
     </div>
   );

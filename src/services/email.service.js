@@ -4,7 +4,7 @@ import { utilService } from "./util.service";
 export const emailService = {
   query,
   //   save,
-  //   remove,
+    remove,
   //   getById,
   //   createRobot,
 };
@@ -26,9 +26,9 @@ async function query(filterBy) {
 //     return storageService.get(STORAGE_KEY, id)
 // }
 
-// function remove(id) {
-//     return storageService.remove(STORAGE_KEY, id)
-// }
+function remove(id) {
+    return storageService.remove(STORAGE_KEY, id)
+}
 
 // function save(robotToSave) {
 //     if (robotToSave.id) {
