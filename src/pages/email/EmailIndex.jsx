@@ -13,8 +13,8 @@ export const EmailIndex = () => {
 
   const loadMails = async () => {
     try {
-      const emails = await emailService.query();
-      setEmails(emails);
+      const emailsResponse = await emailService.query();
+      setEmails(emailsResponse);
     } catch (error) {
       console.log("error:", error);
     }
@@ -26,7 +26,7 @@ export const EmailIndex = () => {
       <div>EmailFolderList</div>
       <div className="container">
         <EmailFilter />
-        <EmailList />
+        <EmailList emails={emails}/>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import { EmailPreview } from '../emailPreview/EmailPreview';
-import './emailList.scss';
+import { EmailPreview } from "../emailPreview/EmailPreview";
+import "./emailList.scss";
 
-export const EmailList = () => {
+export const EmailList = ({ emails }) => {
   return (
-    <div>
-      EmailList
-      <EmailPreview />
+    <div className='email-list'>
+      {emails.map((email) => <EmailPreview key={email.id} emailData={email}/>)}
     </div>
-  )
-}
+  );
+};
+

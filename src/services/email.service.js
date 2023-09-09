@@ -65,7 +65,7 @@ function _createEmails() {
   if (!emails || !emails.length) {
     emails = [];
     
-    for (let i = 0; i < 3; i++){
+    for (let i = 0; i < 20; i++){
       let mail = createEmail("Miss You!" + i, "Body - Miss You  + i",false,false);
       emails.push(mail);
     }

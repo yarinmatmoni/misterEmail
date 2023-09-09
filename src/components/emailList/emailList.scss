@@ -1,0 +1,7 @@
+@import '../../assets/css/index.scss';
+
+.email-list{
+    background-color: $background-color-white;
+    height: calc(100vh - ($header-height + $email-filter));
+    overflow-y: scroll;
+}
