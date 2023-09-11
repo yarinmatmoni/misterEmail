@@ -3,6 +3,7 @@ import { utilService } from "./util.service";
 
 export const emailService = {
   query,
+  getDefaultFilter,
   //   save,
     remove,
   //   getById,
@@ -16,12 +17,13 @@ _createEmails();
 async function query(filterBy) {
   let emails = await storageService.query(STORAGE_KEY);
   if (filterBy) {
-    // let { search, all, read, unread } = filterBy;
-    // emails = emails.filter((email) => 
-    // email.all === true && 
-    // email.subject.toLowerCase().includes(search.toLowerCase()) || 
-    // email.body.toLowerCase().includes(search.toLowerCase())
-    // );
+    let {inputSearch,mailStatus } = filterBy;
+    emails = emails.filter((email) => (!email.isRead && mailStatus === 'unread') && 
+      (email.subject.toLowerCase().includes(inputSearch.toLowerCase())) || 
+      (email.isRead && mailStatus === 'read') &&
+      (email.subject.toLowerCase().includes(inputSearch.toLowerCase())) || (mailStatus === 'all') &&
+      (email.subject.toLowerCase().includes(inputSearch.toLowerCase()))
+    );
   }
   return emails;
 }
@@ -75,5 +77,12 @@ function _createEmails() {
     }
 
     utilService.saveToStorage(STORAGE_KEY, emails);
+  }
+}
+
+function getDefaultFilter() {
+  return {
+    inputSearch: '',
+    mailStatus: 'all',
   }
 }
