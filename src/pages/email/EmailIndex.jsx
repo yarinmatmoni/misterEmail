@@ -34,7 +34,7 @@ export const EmailIndex = () => {
     <div className="email-index">
       <div>EmailFolderList</div>
       <div className="container">
-        <EmailFilter />
+        <EmailFilter /> 
         <EmailList emails={emails} onRemoveEmail={onRemoveEmail}/>
       </div>
     </div>

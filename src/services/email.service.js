@@ -14,10 +14,14 @@ const STORAGE_KEY = "emails";
 _createEmails();
 
 async function query(filterBy) {
-  const emails = await storageService.query(STORAGE_KEY);
+  let emails = await storageService.query(STORAGE_KEY);
   if (filterBy) {
-    console.log("filterBy function");
-    return emails;
+    // let { search, all, read, unread } = filterBy;
+    // emails = emails.filter((email) => 
+    // email.all === true && 
+    // email.subject.toLowerCase().includes(search.toLowerCase()) || 
+    // email.body.toLowerCase().includes(search.toLowerCase())
+    // );
   }
   return emails;
 }
@@ -53,7 +57,7 @@ function createEmail(
     body: body || "Body",
     isRead: isRead || false,
     isStarred: isStarred || false,
-    sentAt: new Date().getTime() || 1551133930594,
+    sentAt: new Date().getTime(),
     removedAt: null,
     from: from || "momo@momo.com",
     to: to || "user@appsus.com",

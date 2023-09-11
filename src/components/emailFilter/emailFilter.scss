@@ -4,9 +4,12 @@
     background-color: $background-color;
     height: $email-filter;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5px 10px;
+    gap: 5px;
 
-    input{
+    input[type='text']{
         width: 250px;
         border: none;
         border-radius: 20px;
@@ -14,5 +17,20 @@
         padding: 8px 16px;
         font-size: 16px;
         background-color: $background-color-input;
+    }
+
+    .checkbox-filter{
+        display: flex;
+        align-items: center;
+        
+        label{
+            font-size: 16px;
+            margin-left: 3px;
+        }
+
+        input{
+            margin-left: 15px;
+            cursor: pointer;
+        }
     }
 }
