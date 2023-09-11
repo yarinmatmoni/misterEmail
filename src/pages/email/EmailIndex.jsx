@@ -8,8 +8,6 @@ export const EmailIndex = () => {
   const [emails, setEmails] = useState(null);
   const [filterBy,setFilterBy] = useState(emailService.getDefaultFilter());
 
-  console.log(filterBy);
-
   useEffect(() => {
     loadMails();
   }, [filterBy]);

@@ -4,9 +4,9 @@ import { utilService } from "./util.service";
 export const emailService = {
   query,
   getDefaultFilter,
-  //   save,
-    remove,
-  //   getById,
+  save,
+  remove,
+  getById,
   //   createRobot,
 };
 
@@ -17,42 +17,39 @@ _createEmails();
 async function query(filterBy) {
   let emails = await storageService.query(STORAGE_KEY);
   if (filterBy) {
-    let {inputSearch,mailStatus } = filterBy;
-    emails = emails.filter((email) => (!email.isRead && mailStatus === 'unread') && 
-      (email.subject.toLowerCase().includes(inputSearch.toLowerCase())) || 
-      (email.isRead && mailStatus === 'read') &&
-      (email.subject.toLowerCase().includes(inputSearch.toLowerCase())) || (mailStatus === 'all') &&
-      (email.subject.toLowerCase().includes(inputSearch.toLowerCase()))
+    let { inputSearch, mailStatus } = filterBy;
+    emails = emails.filter(
+      (email) =>
+        (!email.isRead &&
+          mailStatus === "unread" &&
+          email.subject.toLowerCase().includes(inputSearch.toLowerCase())) ||
+        (email.isRead &&
+          mailStatus === "read" &&
+          email.subject.toLowerCase().includes(inputSearch.toLowerCase())) ||
+        (mailStatus === "all" &&
+          email.subject.toLowerCase().includes(inputSearch.toLowerCase()))
     );
   }
   return emails;
 }
 
-// function getById(id) {
-//     return storageService.get(STORAGE_KEY, id)
-// }
-
-function remove(id) {
-    return storageService.remove(STORAGE_KEY, id)
+function getById(id) {
+  return storageService.get(STORAGE_KEY, id);
 }
 
-// function save(robotToSave) {
-//     if (robotToSave.id) {
-//         return storageService.put(STORAGE_KEY, robotToSave)
-//     } else {
-//         robotToSave.isOn = false
-//         return storageService.post(STORAGE_KEY, robotToSave)
-//     }
-// }
+function remove(id) {
+  return storageService.remove(STORAGE_KEY, id);
+}
 
-function createEmail(
-  subject,
-  body,
-  isRead,
-  isStarred,
-  from,
-  to
-) {
+function save(emailToSave) {
+  if (emailToSave.id) {
+    return storageService.put(STORAGE_KEY, emailToSave);
+  } else {
+    return storageService.post(STORAGE_KEY, emailToSave);
+  }
+}
+
+function createEmail(subject, body, isRead, isStarred, from, to) {
   return {
     id: utilService.makeId(),
     subject: subject || "Subject",
@@ -70,9 +67,14 @@ function _createEmails() {
   let emails = utilService.loadFromStorage(STORAGE_KEY);
   if (!emails || !emails.length) {
     emails = [];
-    
-    for (let i = 0; i < 20; i++){
-      let mail = createEmail("Miss You!" + i, "Body - Miss You  + i",false,false);
+
+    for (let i = 0; i < 20; i++) {
+      let mail = createEmail(
+        "Miss You!" + i,
+        "Body - Miss You  + i",
+        false,
+        false
+      );
       emails.push(mail);
     }
 
@@ -82,7 +84,7 @@ function _createEmails() {
 
 function getDefaultFilter() {
   return {
-    inputSearch: '',
-    mailStatus: 'all',
-  }
+    inputSearch: "",
+    mailStatus: "all",
+  };
 }

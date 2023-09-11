@@ -3,6 +3,7 @@ import { Home } from "./pages/home/Home";
 import { About } from "./pages/aboutUs/About";
 import { EmailIndex } from "./pages/email/EmailIndex";
 import { Header } from "./components/header/Header";
+import { EmailDetails } from "./pages/emailDetails/EmailDetails";
 
 export const App = () => {
   return (
@@ -12,6 +13,7 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/email" element={<EmailIndex />} />
+        <Route path="/email/:emailId" element={<EmailDetails />} />
       </Routes>
     </Router>
   );
