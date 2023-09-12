@@ -3,4 +3,37 @@
 .email-folder-list{
     background-color: $background-color;
     width: $email-folder-list-width;
+    
+    .email-compose-btn{
+        padding: 10px;
+
+        button{
+            border: none;
+            background-color: $background-color-primary;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            cursor: pointer;
+            color: $text-color-active;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            max-width: 150px;
+            gap: 5px;
+            padding: 18px;
+    
+            &:hover{
+                box-shadow: $box-shadow 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+            }
+    
+            &::before{
+                content: "";
+                background-image: url('../../assets/svgs/edit.svg');
+                width: 25px;
+                height: 25px;
+                background-repeat: no-repeat;
+            }
+        }
+    }
 }

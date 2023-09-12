@@ -21,6 +21,7 @@ export const EmailFilter = ({ filterBy, onSetFilter }) => {
         name="inputSearch"
         value={filterByToEdit.inputSearch}
         onChange={handleChange}
+        autoComplete="off"
       />
       <div className="checkbox-filter">
         <input
