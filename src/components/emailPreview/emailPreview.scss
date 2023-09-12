@@ -10,6 +10,10 @@
     cursor: pointer;
     transition: all 0.2s ease;
 
+    &[data-is-read='true']{
+        background-color: $background-color-readMail;
+    }
+
     &:hover{
         box-shadow: $box-shadow 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     }
@@ -42,8 +46,15 @@
             }
         }
 
+        .subject{
+            max-width: 150px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
         .body{
-            width: 50%;
+            max-width: 200px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;

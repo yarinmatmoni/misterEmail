@@ -15,7 +15,7 @@ export const EmailPreview = ({ emailData , onRemoveEmail }) => {
   }
 
   return (
-    <div className="email-preview" onClick={() => onPreviewClick(emailData.id)} onMouseEnter={() => setIsHover(true)} onMouseLeave={() =>setIsHover(false)}>
+    <div className="email-preview" data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)} onMouseEnter={() => setIsHover(true)} onMouseLeave={() =>setIsHover(false)}>
       <img src={emptyStar} alt="star" />
       <div className="emails-preview-details">
         <div className="from-email">{emailData.from}</div>
