@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import emptyStar from "../../assets/svgs/star-empty.svg";
+import emptyStar from "../../assets/svgs/empty-star.svg";
 import archive from "../../assets/svgs/archive.svg";
-import openEmail from "../../assets/svgs/email-open.svg";
+import openEmail from "../../assets/svgs/mark_email_read.svg";
 import trash from "../../assets/svgs/trash.svg";
 import "./emailPreview.scss";
 

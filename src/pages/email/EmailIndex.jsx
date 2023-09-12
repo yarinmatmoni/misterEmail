@@ -2,6 +2,7 @@ import { EmailFilter } from "../../components/emailFilter/EmailFilter";
 import { EmailList } from "../../components/emailList/EmailList";
 import { emailService } from "../../services/email.service";
 import { useState, useEffect } from "react";
+import { EmailFolderList } from "../../components/emailFolderList/EmailFolderList";
 import './emailIndex.scss';
 
 export const EmailIndex = () => {
@@ -37,7 +38,7 @@ export const EmailIndex = () => {
   if (!emails) return <div>Loading..</div>;
   return (
     <div className="email-index">
-      <div>EmailFolderList</div>
+      <EmailFolderList />
       <div className="container">
         <EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} /> 
         <EmailList emails={emails} onRemoveEmail={onRemoveEmail} />
