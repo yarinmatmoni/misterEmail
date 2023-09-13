@@ -14,9 +14,13 @@ export const EmailPreview = ({ emailData , onRemoveEmail }) => {
     navigate(`/email/${emailId}`);
   }
 
+  const onSetStar = (event) => {
+    event.stopPropagation();
+  }
+
   return (
     <div className="email-preview" data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)} onMouseEnter={() => setIsHover(true)} onMouseLeave={() =>setIsHover(false)}>
-      <img src={emptyStar} alt="star" />
+      <img src={emptyStar} alt="star" onClick={onSetStar}/>
       <div className="emails-preview-details">
         <div className="from-email">{emailData.from}</div>
         <div className="subject">{emailData.subject}</div>
