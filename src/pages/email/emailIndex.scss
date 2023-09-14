@@ -1,10 +1,20 @@
 @import '../../assets/css/index.scss';
 
-.email-index{
-    height: calc(100vh - 57px);
-    display: flex;
+.email-index {
+	display: grid;
+	grid-template-columns: 256px 1fr;
+	grid-template-rows: $email-filter 1fr;
+	grid-template-areas: 'af tf' 'af m';
 
-    .container{
-        width: 100%;
-    }
+	.top-filter {
+		grid-area: tf;
+	}
+
+	.aside-filter {
+		grid-area: af;
+	}
+
+	.main {
+		grid-area: m;
+	}
 }
