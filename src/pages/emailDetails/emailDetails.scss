@@ -1,51 +1,56 @@
 @import '../../assets/css/index.scss';
 
 .email-details {
-	//   height: calc(100vh - $header-height);
-	//   display: flex;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 256px 1fr;
+	height: calc(100vh - $header-height);
 
 	.container {
-		// background-color: $background-color-white;
-		// width: calc(100vw - $email-folder-list-width);
+		display: grid;
+		grid-template-rows: auto 1fr;
 
 		.options {
-			// display: flex;
-			// padding: 15px;
-			// align-items: center;
-			// gap: 20px;
-			// height: $email-options-heigh;
+			display: grid;
+			grid-auto-flow: column;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 25px;
+			padding: 10px;
 
-			// img {
-			// 	cursor: pointer;
-			// 	height: 20px;
-			// 	width: 20px;
-			// }
+			img {
+				cursor: pointer;
+				height: 20px;
+				width: 20px;
+			}
 		}
 
 		.email-content {
-			// padding: 0 30px 0 15px;
-			// height: calc(100vh - ($email-options-heigh + $header-height));
-			// overflow-x: scroll;
+			padding: 40px;
+			overflow: auto;
 
 			.subject {
-				// font-size: 30px;
-				// font-weight: bold;
-				// color: $text-color-bold;
+				display: flex;
+				font-size: 50px;
+				font-weight: bold;
+				color: $text-color-bold;
 			}
 
 			.from-email {
-				// font-size: 15px;
-				// display: flex;
-				// justify-content: space-between;
+				font-size: 15px;
+				display: grid;
+				grid-auto-flow: column;
+				align-items: center;
+				justify-content: space-between;
 
 				span {
-					// font-weight: bold;
-					// margin-right: 5px;
+					font-weight: bold;
+					margin-right: 5px;
 				}
 			}
 
 			.body-email {
-				// margin-top: 30px;
+				padding-top: 50px;
 			}
 		}
 	}
