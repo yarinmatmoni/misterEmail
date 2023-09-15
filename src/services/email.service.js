@@ -1,6 +1,12 @@
 import { storageService } from './async-storage.service';
 import { utilService } from './util.service';
 
+import inboxIcon from '../assets/svgs/inbox.svg';
+import starredIcon from '../assets/svgs/empty-star.svg';
+import sentIcon from '../assets/svgs/send.svg';
+import draftIcon from '../assets/svgs/draft.svg';
+import trashIcon from '../assets/svgs/trash.svg';
+
 export const emailService = {
 	query,
 	getDefaultFilter,
@@ -94,3 +100,11 @@ function getSentAt(sentAtTimeStamp) {
 	const currentDateArray = emailSentTime.toDateString().split(' ');
 	return `${currentDateArray[2] < 10 ? currentDateArray[2].slice(1) : currentDateArray[2]} ${currentDateArray[1]}`;
 }
+
+export const folderList = [
+	{ name: 'Inbox', icon: inboxIcon },
+	{ name: 'Starred', icon: starredIcon },
+	{ name: 'Sent', icon: sentIcon },
+	{ name: 'Draft', icon: draftIcon },
+	{ name: 'Trash', icon: trashIcon },
+];

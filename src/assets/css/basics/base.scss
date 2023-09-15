@@ -15,6 +15,15 @@ a {
 	text-decoration: none;
 }
 
+button {
+	border: none;
+	cursor: pointer;
+}
+
+li {
+	list-style: none;
+}
+
 *::-webkit-scrollbar {
 	display: initial;
 	width: 8px;

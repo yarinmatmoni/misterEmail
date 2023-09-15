@@ -3,38 +3,70 @@
 .email-folder-list {
 	background-color: $background-color;
 	height: 100%;
-	// width: $email-folder-list-width;
+	display: grid;
+	grid-template-rows: 80px 1fr;
 
-	// .email-compose-btn{
-	//     padding: 10px;
+	.email-compose {
+		display: grid;
+		align-items: center;
+		justify-content: start;
+		padding-left: 8px;
 
-	//     button{
-	//         border: none;
-	//         background-color: $background-color-primary;
-	//         display: flex;
-	//         align-items: center;
-	//         justify-content: center;
-	//         border-radius: 16px;
-	//         cursor: pointer;
-	//         color: $text-color-active;
-	//         font-weight: bold;
-	//         font-size: 16px;
-	//         transition: all 0.2s ease;
-	//         max-width: 150px;
-	//         gap: 5px;
-	//         padding: 18px;
+		button {
+			background-color: $background-color-primary;
+			color: $text-color-active;
+			font-weight: bold;
+			border-radius: 16px;
+			font-size: 15px;
+			width: 150px;
+			height: 56px;
+			transition: all 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 5px;
 
-	//         &:hover{
-	//             box-shadow: $box-shadow 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-	//         }
+			img {
+				height: 22px;
+				width: 22px;
+			}
 
-	//         &::before{
-	//             content: "";
-	//             background-image: url('../../assets/svgs/edit.svg');
-	//             width: 25px;
-	//             height: 25px;
-	//             background-repeat: no-repeat;
-	//         }
-	//     }
-	// }
+			&:hover {
+				box-shadow: $box-shadow 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+			}
+		}
+	}
+
+	.folder-list {
+		padding: 0;
+		height: calc(100vh - ($header-height + 80px));
+		overflow: hidden;
+
+		&:hover {
+			overflow: auto;
+		}
+
+		li {
+			height: 32px;
+			display: flex;
+			align-items: center;
+			padding: 0 12px 0 26px;
+			gap: 15px;
+			cursor: pointer;
+			font-size: 16px;
+			font-weight: bold;
+			color: $text-color-bold;
+
+			&:hover {
+				background-color: $background-color-hover;
+				width: 95%;
+				border-radius: 0 16px 16px 0;
+			}
+
+			img {
+				height: 20px;
+				width: 20px;
+			}
+		}
+	}
 }
