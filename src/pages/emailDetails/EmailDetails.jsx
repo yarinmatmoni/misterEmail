@@ -36,34 +36,37 @@ export const EmailDetails = () => {
 		}
 	};
 
-	if (!email) return <div>Loading...</div>;
 	return (
 		<div className='email-details'>
 			<EmailFolderList />
-			<div className='container'>
-				<div className='options'>
-					<img
-						src={back}
-						alt='back'
-						onClick={() => navigate('/email')}
-					/>
-					<img
-						src={trash}
-						alt='delete'
-						onClick={onRemoveEmail}
-					/>
-				</div>
-				<div className='email-content'>
-					<div className='subject'>{email.subject}</div>
-					<div className='from-email'>
-						<div>
-							<span>From :</span> {email.from}
-						</div>
-						<div>{email.sentAt}</div>
+			{!email ? (
+				<div>Loading...</div>
+			) : (
+				<div className='container'>
+					<div className='options'>
+						<img
+							src={back}
+							alt='back'
+							onClick={() => navigate('/email')}
+						/>
+						<img
+							src={trash}
+							alt='delete'
+							onClick={onRemoveEmail}
+						/>
 					</div>
-					<div className='body-email'>{email.body}</div>
+					<div className='email-content'>
+						<div className='subject'>{email.subject}</div>
+						<div className='from-email'>
+							<div>
+								<span>From :</span> {email.from}
+							</div>
+							<div>{emailService.getSentAt(email.sentAt)}</div>
+						</div>
+						<div className='body-email'>{email.body}</div>
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

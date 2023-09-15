@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { emailService } from '../../services/email.service';
 import emptyStar from '../../assets/svgs/empty-star.svg';
 import archive from '../../assets/svgs/archive.svg';
 import openEmail from '../../assets/svgs/mark_email_read.svg';
@@ -31,7 +32,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail }) => {
 				<div className='from-email'>{emailData.from}</div>
 				<div className='subject'>{emailData.subject}</div>
 				<div className='body'>{emailData.body}</div>
-				<div className='date'>{emailData.sentAt}</div>
+				<div className='date'>{emailService.getSentAt(emailData.sentAt)}</div>
 				<div className='email-options'>
 					<img
 						src={archive}

@@ -3,14 +3,17 @@
 .email-preview {
 	display: flex;
 	align-items: center;
-	padding: 6px 24px 6px 12px;
+	padding: 8px 24px 8px 12px;
 	font-size: 15px;
 	border-bottom: 1px solid $line-color;
-	padding-top: 10px;
 	cursor: pointer;
 
 	&[data-is-read='true'] {
 		background-color: $background-color-readMail;
+
+		.emails-preview-details div {
+			font-weight: initial;
+		}
 	}
 
 	&:hover {
@@ -19,7 +22,6 @@
 
 	img {
 		cursor: pointer;
-		margin-right: 20px;
 		height: 18px;
 		width: 18px;
 	}
@@ -28,6 +30,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		margin-left: 15px;
 
 		div {
 			font-weight: bold;
@@ -38,12 +41,7 @@
 			display: none;
 			grid-auto-flow: column;
 			align-items: center;
-			justify-content: center;
-
-			img {
-				height: 17px;
-				width: 17px;
-			}
+			gap: 15px;
 		}
 
 		&:hover {
