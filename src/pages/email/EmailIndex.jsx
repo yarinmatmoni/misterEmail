@@ -26,7 +26,8 @@ export const EmailIndex = () => {
 		}
 	};
 
-	const onRemoveEmail = async (emailId) => {
+	const onRemoveEmail = async (event, emailId) => {
+		event.stopPropagation();
 		try {
 			await emailService.remove(emailId);
 			setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
