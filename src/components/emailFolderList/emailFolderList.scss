@@ -56,11 +56,15 @@
 			font-size: 16px;
 			font-weight: bold;
 			color: $text-color-bold;
+			width: 95%;
+			border-radius: 0 16px 16px 0;
 
-			&:hover {
+			&[data-folder='true'] {
+				background-color: $background-color-active-folder;
+			}
+
+			&:not([data-folder='true']):hover {
 				background-color: $background-color-hover;
-				width: 95%;
-				border-radius: 0 16px 16px 0;
 			}
 
 			img {

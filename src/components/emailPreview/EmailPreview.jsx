@@ -15,7 +15,6 @@ export const EmailPreview = ({ emailData, onRemoveEmail }) => {
 
 	useEffect(() => {
 		updateEmail();
-		console.log(email);
 	}, [email]);
 
 	const onPreviewClick = (emailId) => {

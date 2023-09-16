@@ -40,7 +40,10 @@ export const EmailIndex = () => {
 	return (
 		<div className='email-index'>
 			<div className='aside-filter'>
-				<EmailFolderList />
+				<EmailFolderList
+					filterBy={filterBy}
+					onSetFilter={onSetFilter}
+				/>
 			</div>
 			<div className='top-filter'>
 				<EmailFilter

@@ -24,7 +24,27 @@ _createEmails();
 async function query(filterBy) {
 	let emails = await storageService.query(STORAGE_KEY);
 	if (filterBy) {
-		let { inputSearch, mailStatus } = filterBy;
+		let { inputSearch, mailStatus, folder } = filterBy;
+
+		switch (folder) {
+			case 'Starred': {
+				emails = emails.filter((email) => email.isStarred);
+				break;
+			}
+			//TODO: all the other folders
+			// case 'Trash': {
+			// 	emails = emails.filter((email) => email.removedAt !== null);
+			// 	break;
+			// }
+			// case 'Sent': {
+			// 	emails = emails.filter((email) => email.from === userEmail);
+			// }
+			// case 'Draft': {
+			// }
+			default:
+				break;
+		}
+
 		emails = emails.filter(
 			(email) =>
 				(!email.isRead && mailStatus === 'unread' && email.subject.toLowerCase().includes(inputSearch.toLowerCase())) ||
@@ -83,6 +103,7 @@ function getDefaultFilter() {
 	return {
 		inputSearch: '',
 		mailStatus: 'all',
+		folder: 'Inbox',
 	};
 }
 
