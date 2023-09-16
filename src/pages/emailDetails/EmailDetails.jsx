@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
-import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
+// import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
 import trash from '../../assets/svgs/trash.svg';
 import back from '../../assets/svgs/arrow-back.svg';
 import './emailDetails.scss';
@@ -38,7 +38,7 @@ export const EmailDetails = () => {
 
 	return (
 		<div className='email-details'>
-			<EmailFolderList />
+			{/* <EmailFolderList /> */}
 			{!email ? (
 				<div>Loading...</div>
 			) : (

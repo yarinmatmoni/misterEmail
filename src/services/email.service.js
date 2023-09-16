@@ -31,13 +31,14 @@ async function query(filterBy) {
 				emails = emails.filter((email) => email.isStarred);
 				break;
 			}
+			case 'Sent': {
+				emails = emails.filter((email) => email.from === loggedInUser.email);
+				break;
+			}
 			//TODO: all the other folders
 			// case 'Trash': {
 			// 	emails = emails.filter((email) => email.removedAt !== null);
 			// 	break;
-			// }
-			// case 'Sent': {
-			// 	emails = emails.filter((email) => email.from === userEmail);
 			// }
 			// case 'Draft': {
 			// }
@@ -98,6 +99,11 @@ function _createEmails() {
 		utilService.saveToStorage(STORAGE_KEY, emails);
 	}
 }
+
+const loggedInUser = {
+	email: 'user@appsus.com',
+	fullname: 'Yarin Matmoni',
+};
 
 function getDefaultFilter() {
 	return {

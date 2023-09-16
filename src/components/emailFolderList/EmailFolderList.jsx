@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { folderList } from '../../services/email.service';
 import newIcon from '../../assets/svgs/edit.svg';
 import './emailFolderList.scss';
 
 export const EmailFolderList = ({ filterBy, onSetFilter }) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		onSetFilter(filterByToEdit);
@@ -17,7 +19,7 @@ export const EmailFolderList = ({ filterBy, onSetFilter }) => {
 	return (
 		<div className='email-folder-list'>
 			<div className='email-compose'>
-				<button>
+				<button onClick={() => navigate('/email/compose')}>
 					<img
 						src={newIcon}
 						alt='new'
@@ -40,6 +42,7 @@ export const EmailFolderList = ({ filterBy, onSetFilter }) => {
 					</li>
 				))}
 			</ul>
+			<Outlet />
 		</div>
 	);
 };
