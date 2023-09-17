@@ -16,8 +16,9 @@ export const EmailCompose = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			await emailService.save(editForm);
-			navigate('/email');
+			const newEmail = await emailService.save(editForm);
+
+			navigate('/email', { state: newEmail });
 		} catch (error) {
 			console.error('Error:', error);
 		}

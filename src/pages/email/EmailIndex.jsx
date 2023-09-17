@@ -4,14 +4,16 @@ import { EmailList } from '../../components/emailList/EmailList';
 import { emailService } from '../../services/email.service';
 import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
 import './emailIndex.scss';
+import { useLocation } from 'react-router-dom';
 
 export const EmailIndex = () => {
+	const { state } = useLocation();
 	const [emails, setEmails] = useState(null);
 	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
 
 	useEffect(() => {
 		loadMails();
-	}, [filterBy]);
+	}, [filterBy, state]);
 
 	const onSetFilter = (fieldsToUpdate) => {
 		setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
