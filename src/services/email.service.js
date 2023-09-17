@@ -15,7 +15,6 @@ export const emailService = {
 	remove,
 	getById,
 	getSentAt,
-	//   createRobot,
 };
 
 const STORAGE_KEY = 'emails';
@@ -54,7 +53,7 @@ async function query(filterBy) {
 				(mailStatus === 'all' && email.subject.toLowerCase().includes(inputSearch.toLowerCase())),
 		);
 	}
-	return emails;
+	return emails.sort((a, b) => b.sentAt - a.sentAt);
 }
 
 function getById(id) {
@@ -69,7 +68,10 @@ function save(emailToSave) {
 	if (emailToSave.id) {
 		return storageService.put(STORAGE_KEY, emailToSave);
 	} else {
-		return storageService.post(STORAGE_KEY, emailToSave);
+		return storageService.post(
+			STORAGE_KEY,
+			createEmail(emailToSave.subject, emailToSave.body, null, null, loggedInUser.email, emailToSave.to),
+		);
 	}
 }
 
@@ -118,7 +120,7 @@ function getDefaultForm() {
 	return {
 		to: '',
 		subject: '',
-		message: '',
+		body: '',
 	};
 }
 

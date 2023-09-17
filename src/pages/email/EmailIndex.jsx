@@ -1,7 +1,7 @@
+import { useState, useEffect } from 'react';
 import { EmailFilter } from '../../components/emailFilter/EmailFilter';
 import { EmailList } from '../../components/emailList/EmailList';
 import { emailService } from '../../services/email.service';
-import { useState, useEffect } from 'react';
 import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
 import './emailIndex.scss';
 

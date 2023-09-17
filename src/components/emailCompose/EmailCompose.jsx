@@ -13,9 +13,14 @@ export const EmailCompose = () => {
 		setEditForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
 	};
 
-	const handleSubmit = (event) => {
-		//TODO: handleSubmit function
+	const handleSubmit = async (event) => {
 		event.preventDefault();
+		try {
+			await emailService.save(editForm);
+			navigate('/email');
+		} catch (error) {
+			console.error('Error:', error);
+		}
 	};
 
 	return (
@@ -32,17 +37,20 @@ export const EmailCompose = () => {
 				<label htmlFor='to'>
 					To
 					<input
-						type='text'
+						type='email'
+						autoComplete='off'
 						id='to'
 						value={editForm.to}
 						onChange={handleOnChange}
 						name='to'
+						required
 					/>
 				</label>
 				<label htmlFor='subject'>
 					Subject
 					<input
 						type='text'
+						autoComplete='off'
 						id='subject'
 						value={editForm.subject}
 						onChange={handleOnChange}
@@ -50,9 +58,9 @@ export const EmailCompose = () => {
 					/>
 				</label>
 				<textarea
-					value={editForm.message}
+					value={editForm.body}
 					onChange={handleOnChange}
-					name='message'
+					name='body'
 				/>
 				<button>Send</button>
 			</form>

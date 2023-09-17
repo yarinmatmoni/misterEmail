@@ -5,8 +5,8 @@ import newIcon from '../../assets/svgs/edit.svg';
 import './emailFolderList.scss';
 
 export const EmailFolderList = ({ filterBy, onSetFilter }) => {
-	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const navigate = useNavigate();
+	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 
 	useEffect(() => {
 		onSetFilter(filterByToEdit);
