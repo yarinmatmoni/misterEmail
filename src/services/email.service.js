@@ -10,6 +10,7 @@ import trashIcon from '../assets/svgs/trash.svg';
 export const emailService = {
 	query,
 	getDefaultFilter,
+	getDefaultForm,
 	save,
 	remove,
 	getById,
@@ -110,6 +111,14 @@ function getDefaultFilter() {
 		inputSearch: '',
 		mailStatus: 'all',
 		folder: 'Inbox',
+	};
+}
+
+function getDefaultForm() {
+	return {
+		to: '',
+		subject: '',
+		message: '',
 	};
 }
 
