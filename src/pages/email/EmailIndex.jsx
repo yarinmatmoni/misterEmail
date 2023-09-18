@@ -9,12 +9,17 @@ import './emailIndex.scss';
 
 export const EmailIndex = () => {
 	const { state, pathname } = useLocation();
+	const endPathName = pathname.split('/').at(-1);
 	const [emails, setEmails] = useState(null);
-	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
+	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter(endPathName));
 
 	useEffect(() => {
 		loadMails();
 	}, [filterBy, state]);
+
+	useEffect(() => {
+		setFilterBy((prevFilter) => ({ ...prevFilter, folder: endPathName }));
+	}, [pathname]);
 
 	const onSetFilter = (fieldsToUpdate) => {
 		setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
@@ -39,6 +44,11 @@ export const EmailIndex = () => {
 		}
 	};
 
+	const onUpdateEmail = async (email) => {
+		const updateEmail = { ...email };
+		return await emailService.save(updateEmail);
+	};
+
 	if (!emails) return <div>Loading..</div>;
 	return (
 		<div className='email-index'>
@@ -58,6 +68,7 @@ export const EmailIndex = () => {
 					<EmailList
 						emails={emails}
 						onRemoveEmail={onRemoveEmail}
+						onUpdateEmail={onUpdateEmail}
 					/>
 				)}
 			</div>

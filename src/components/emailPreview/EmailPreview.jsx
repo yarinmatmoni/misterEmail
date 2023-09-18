@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import emptyStar from '../../assets/svgs/empty-star.svg';
@@ -9,31 +9,25 @@ import unReadEmail from '../../assets/svgs/unRead.svg';
 import trash from '../../assets/svgs/trash.svg';
 import './emailPreview.scss';
 
-export const EmailPreview = ({ emailData, onRemoveEmail }) => {
+export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [email, setEmail] = useState(emailData);
-
-	useEffect(() => {
-		updateEmail();
-	}, [email]);
 
 	const onPreviewClick = (emailId) => {
 		navigate(`${pathname}/details/${emailId}`);
 	};
 
-	const onSetStar = (event) => {
+	const onSetStar = async (event) => {
 		event.stopPropagation();
-		setEmail((prevEmail) => ({ ...prevEmail, isStarred: !prevEmail.isStarred }));
+		emailData.isStarred = !emailData.isStarred;
+		setEmail(await onUpdateEmail(emailData));
 	};
 
-	const onSetRead = (event) => {
+	const onSetRead = async (event) => {
 		event.stopPropagation();
-		setEmail((prevEmail) => ({ ...prevEmail, isRead: !prevEmail.isRead }));
-	};
-
-	const updateEmail = async () => {
-		await emailService.save(email);
+		emailData.isRead = !emailData.isRead;
+		setEmail(await onUpdateEmail(emailData));
 	};
 
 	return (

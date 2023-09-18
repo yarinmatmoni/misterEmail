@@ -25,13 +25,12 @@ async function query(filterBy) {
 	let emails = await storageService.query(STORAGE_KEY);
 	if (filterBy) {
 		let { inputSearch, mailStatus, folder } = filterBy;
-
 		switch (folder) {
-			case 'Starred': {
+			case 'starred': {
 				emails = emails.filter((email) => email.isStarred);
 				break;
 			}
-			case 'Sent': {
+			case 'sent': {
 				emails = emails.filter((email) => email.from === loggedInUser.email);
 				break;
 			}
@@ -108,11 +107,11 @@ const loggedInUser = {
 	fullname: 'Yarin Matmoni',
 };
 
-function getDefaultFilter() {
+function getDefaultFilter(folderName) {
 	return {
 		inputSearch: '',
 		mailStatus: 'all',
-		folder: 'Inbox',
+		folder: folderName,
 	};
 }
 
