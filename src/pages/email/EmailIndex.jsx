@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { EmailFilter } from '../../components/emailFilter/EmailFilter';
 import { EmailList } from '../../components/emailList/EmailList';
 import { emailService } from '../../services/email.service';
 import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
+import { EmailDetails } from '../emailDetails/EmailDetails';
 import './emailIndex.scss';
-import { useLocation } from 'react-router-dom';
 
 export const EmailIndex = () => {
-	const { state } = useLocation();
+	const { state, pathname } = useLocation();
 	const [emails, setEmails] = useState(null);
 	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
 
@@ -54,10 +55,14 @@ export const EmailIndex = () => {
 				/>
 			</div>
 			<div className='main'>
-				<EmailList
-					emails={emails}
-					onRemoveEmail={onRemoveEmail}
-				/>
+				{pathname === '/email' ? (
+					<EmailList
+						emails={emails}
+						onRemoveEmail={onRemoveEmail}
+					/>
+				) : (
+					<EmailDetails />
+				)}
 			</div>
 		</div>
 	);

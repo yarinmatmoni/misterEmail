@@ -3,7 +3,6 @@ import { Home } from './pages/home/Home';
 import { About } from './pages/aboutUs/About';
 import { EmailIndex } from './pages/email/EmailIndex';
 import { Header } from './components/header/Header';
-import { EmailDetails } from './pages/emailDetails/EmailDetails';
 import { EmailCompose } from './components/emailCompose/EmailCompose';
 
 export const App = () => {
@@ -23,15 +22,12 @@ export const App = () => {
 					path='/email'
 					element={<EmailIndex />}
 				>
+					<Route path=':emailId' />
 					<Route
-						path='/email/compose'
+						path='compose'
 						element={<EmailCompose />}
 					/>
 				</Route>
-				<Route
-					path='/email/:emailId'
-					element={<EmailDetails />}
-				/>
 			</Routes>
 		</Router>
 	);
