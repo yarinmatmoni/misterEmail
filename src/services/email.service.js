@@ -140,9 +140,9 @@ function getSentAt(sentAtTimeStamp) {
 }
 
 export const folderList = [
-	{ name: 'Inbox', icon: inboxIcon },
-	{ name: 'Starred', icon: starredIcon },
-	{ name: 'Sent', icon: sentIcon },
-	{ name: 'Draft', icon: draftIcon },
-	{ name: 'Trash', icon: trashIcon },
+	{ name: 'inbox', icon: inboxIcon },
+	{ name: 'starred', icon: starredIcon },
+	{ name: 'sent', icon: sentIcon },
+	{ name: 'draft', icon: draftIcon },
+	{ name: 'trash', icon: trashIcon },
 ];

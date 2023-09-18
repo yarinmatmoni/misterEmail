@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import emptyStar from '../../assets/svgs/empty-star.svg';
 import fullStar from '../../assets/svgs/full-star.svg';
@@ -11,6 +11,7 @@ import './emailPreview.scss';
 
 export const EmailPreview = ({ emailData, onRemoveEmail }) => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const [email, setEmail] = useState(emailData);
 
 	useEffect(() => {
@@ -18,7 +19,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail }) => {
 	}, [email]);
 
 	const onPreviewClick = (emailId) => {
-		navigate(`/email/${emailId}`);
+		navigate(`${pathname}/details/${emailId}`);
 	};
 
 	const onSetStar = (event) => {

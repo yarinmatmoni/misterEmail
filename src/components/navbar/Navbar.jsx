@@ -6,7 +6,7 @@ export const Navbar = () => {
 		<nav className='navbar-container'>
 			<NavLink to='/'>Home</NavLink>
 			<NavLink to='/about'>About</NavLink>
-			<NavLink to='/email'>Email</NavLink>
+			<NavLink to='/email/inbox'>Email</NavLink>
 		</nav>
 	);
 };

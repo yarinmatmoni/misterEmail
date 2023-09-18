@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
 import './emailCompose.scss';
 
 export const EmailCompose = () => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 
 	const handleOnChange = (event) => {
@@ -17,8 +18,7 @@ export const EmailCompose = () => {
 		event.preventDefault();
 		try {
 			const newEmail = await emailService.save(editForm);
-
-			navigate('/email', { state: newEmail });
+			navigate(`/email/${pathname.split('/')[2]}`, { state: newEmail });
 		} catch (error) {
 			console.error('Error:', error);
 		}
@@ -29,7 +29,7 @@ export const EmailCompose = () => {
 			<div className='top-details'>
 				<div className='top-title'>New Message</div>
 				<img
-					onClick={() => navigate('/email')}
+					onClick={() => navigate(`/email/${pathname.split('/')[2]}`)}
 					src={close}
 					alt='close'
 				/>

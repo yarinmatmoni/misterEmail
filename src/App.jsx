@@ -19,10 +19,10 @@ export const App = () => {
 					element={<About />}
 				/>
 				<Route
-					path='/email'
+					path='/email/:folder'
 					element={<EmailIndex />}
 				>
-					<Route path=':emailId' />
+					<Route path='details/:emailId' />
 					<Route
 						path='compose'
 						element={<EmailCompose />}

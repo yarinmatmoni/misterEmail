@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import trash from '../../assets/svgs/trash.svg';
@@ -8,6 +8,7 @@ import './emailDetails.scss';
 
 export const EmailDetails = () => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const { emailId } = useParams();
 	const [email, setEmail] = useState(null);
 
@@ -29,7 +30,7 @@ export const EmailDetails = () => {
 	const onRemoveEmail = async () => {
 		try {
 			await emailService.remove(email.id);
-			navigate('/email');
+			navigate(`/email/${pathname.split('/')[2]}`);
 		} catch (error) {
 			console.log('Error:', error);
 		}
@@ -45,7 +46,7 @@ export const EmailDetails = () => {
 						<img
 							src={back}
 							alt='back'
-							onClick={() => navigate('/email')}
+							onClick={() => navigate(`/email/${pathname.split('/')[2]}`)}
 						/>
 						<img
 							src={trash}

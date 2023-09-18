@@ -43,10 +43,7 @@ export const EmailIndex = () => {
 	return (
 		<div className='email-index'>
 			<div className='aside-filter'>
-				<EmailFolderList
-					filterBy={filterBy}
-					onSetFilter={onSetFilter}
-				/>
+				<EmailFolderList />
 			</div>
 			<div className='top-filter'>
 				<EmailFilter
@@ -55,13 +52,13 @@ export const EmailIndex = () => {
 				/>
 			</div>
 			<div className='main'>
-				{pathname === '/email' ? (
+				{pathname.includes('details') ? (
+					<EmailDetails />
+				) : (
 					<EmailList
 						emails={emails}
 						onRemoveEmail={onRemoveEmail}
 					/>
-				) : (
-					<EmailDetails />
 				)}
 			</div>
 		</div>
