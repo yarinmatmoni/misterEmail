@@ -1,11 +1,22 @@
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { folderList } from '../../services/email.service';
 import newIcon from '../../assets/svgs/edit.svg';
 import './emailFolderList.scss';
 
-export const EmailFolderList = ({ onSaveEmail }) => {
+export const EmailFolderList = ({ onSaveEmail, filterBy, onSetFilter }) => {
+	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		onSetFilter(filterByToEdit);
+	}, [filterByToEdit]);
+
+	const handleSelectFolder = (folderName) => {
+		setFilterByToEdit((prevFilter) => ({ ...prevFilter, folder: folderName }));
+		navigate(`/email/${folderName}`);
+	};
 
 	return (
 		<div className='email-folder-list'>
@@ -20,7 +31,7 @@ export const EmailFolderList = ({ onSaveEmail }) => {
 					<li
 						key={folder.name}
 						data-folder={folder.name === pathname.split('/').at(-1)}
-						onClick={() => navigate(`/email/${folder.name}`)}
+						onClick={() => handleSelectFolder(folder.name)}
 					>
 						<img src={folder.icon} alt={folder.name} />
 						{folder.name}

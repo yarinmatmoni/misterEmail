@@ -10,19 +10,12 @@ import './emailIndex.scss';
 export const EmailIndex = () => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
-	const endPathName = pathname.split('/').at(-1);
 	const [emails, setEmails] = useState(null);
-	const [filterBy, setFilterBy] = useState(
-		emailService.getDefaultFilter(endPathName),
-	);
+	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
 
 	useEffect(() => {
 		loadMails();
 	}, [filterBy]);
-
-	useEffect(() => {
-		setFilterBy((prevFilter) => ({ ...prevFilter, folder: endPathName }));
-	}, [pathname]);
 
 	const onSetFilter = (fieldsToUpdate) => {
 		setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
@@ -76,10 +69,20 @@ export const EmailIndex = () => {
 	return (
 		<div className='email-index'>
 			<div className='aside-filter'>
-				<EmailFolderList onSaveEmail={onSaveEmail} />
+				<EmailFolderList
+					onSaveEmail={onSaveEmail}
+					filterBy={{ folder: filterBy.folder }}
+					onSetFilter={onSetFilter}
+				/>
 			</div>
 			<div className='top-filter'>
-				<EmailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+				<EmailFilter
+					filterBy={{
+						inputSearch: filterBy.inputSearch,
+						mailStatus: filterBy.mailStatus,
+					}}
+					onSetFilter={onSetFilter}
+				/>
 			</div>
 			<div className='main'>
 				{pathname.includes('details') ? (
