@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
 import './emailCompose.scss';
 
 export const EmailCompose = () => {
 	const navigate = useNavigate();
+	const { onSaveEmail } = useOutletContext();
 	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 
@@ -16,12 +17,7 @@ export const EmailCompose = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		try {
-			const newEmail = await emailService.save(editForm);
-			navigate(`/email/${pathname.split('/')[2]}`, { state: newEmail });
-		} catch (error) {
-			console.error('Error:', error);
-		}
+		onSaveEmail(editForm);
 	};
 
 	return (
