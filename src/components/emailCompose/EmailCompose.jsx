@@ -58,11 +58,7 @@ export const EmailCompose = () => {
 						name='subject'
 					/>
 				</label>
-				<textarea
-					value={editForm.body}
-					onChange={handleOnChange}
-					name='body'
-				/>
+				<textarea value={editForm.body} onChange={handleOnChange} name='body' />
 				<button>Send</button>
 			</form>
 		</div>

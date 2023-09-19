@@ -10,23 +10,11 @@ export const App = () => {
 		<Router>
 			<Header />
 			<Routes>
-				<Route
-					path='/'
-					element={<Home />}
-				/>
-				<Route
-					path='/about'
-					element={<About />}
-				/>
-				<Route
-					path='/email/:folder'
-					element={<EmailIndex />}
-				>
+				<Route path='/' element={<Home />} />
+				<Route path='/about' element={<About />} />
+				<Route path='/email/:folder' element={<EmailIndex />}>
 					<Route path='details/:emailId' />
-					<Route
-						path='compose'
-						element={<EmailCompose />}
-					/>
+					<Route path='compose' element={<EmailCompose />} />
 				</Route>
 			</Routes>
 		</Router>

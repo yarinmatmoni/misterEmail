@@ -1,18 +1,18 @@
-@import '../../assets/css/index.scss';
+@import "../../assets/css/index.scss";
 
 .navbar-container {
-	display: grid;
-	grid-auto-flow: column;
-	justify-content: start;
-	gap: 20px;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  gap: 20px;
 
-	a {
-		font-weight: 600;
-		transition: all 0.3s ease;
+  a {
+    font-weight: 600;
+    transition: all 0.3s ease;
 
-		&:hover,
-		&.active {
-			color: $text-color-active;
-		}
-	}
+    &:hover,
+    &.active {
+      color: $text-color-active;
+    }
+  }
 }

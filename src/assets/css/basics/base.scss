@@ -1,41 +1,41 @@
-@import './colors.scss';
+@import "./colors.scss";
 
 * {
-	box-sizing: border-box;
-	margin: 0;
-	color: $text-color;
-	font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  color: $text-color;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 button {
-	border: none;
-	cursor: pointer;
+  border: none;
+  cursor: pointer;
 }
 
 li {
-	list-style: none;
+  list-style: none;
 }
 
 *::-webkit-scrollbar {
-	display: initial;
-	width: 8px;
-	height: 4px;
+  display: initial;
+  width: 8px;
+  height: 4px;
 }
 
 *::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: gray;
-	border-radius: 20px;
-	border: transparent;
+  background-color: gray;
+  border-radius: 20px;
+  border: transparent;
 }
