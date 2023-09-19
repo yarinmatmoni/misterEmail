@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { EmailFilter } from '../../components/emailFilter/EmailFilter';
 import { EmailList } from '../../components/emailList/EmailList';
 import { emailService } from '../../services/email.service';
@@ -10,10 +10,13 @@ import './emailIndex.scss';
 export const EmailIndex = () => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
+	const { folder } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [emails, setEmails] = useState(null);
-	const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter());
+	const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams, folder));
 
 	useEffect(() => {
+		setSearchParams(filterBy);
 		loadMails();
 	}, [filterBy]);
 
@@ -34,9 +37,7 @@ export const EmailIndex = () => {
 		event.stopPropagation();
 		try {
 			await emailService.remove(emailId);
-			setEmails((prevEmails) =>
-				prevEmails.filter((email) => email.id !== emailId),
-			);
+			setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
 		} catch (error) {
 			console.log('error:', error);
 		}
@@ -45,11 +46,7 @@ export const EmailIndex = () => {
 	const onUpdateEmail = async (updateEmail) => {
 		try {
 			const updatedEmail = await emailService.save(updateEmail);
-			setEmails((prevEmails) =>
-				prevEmails.map((email) =>
-					email.id === updateEmail.id ? updatedEmail : email,
-				),
-			);
+			setEmails((prevEmails) => prevEmails.map((email) => (email.id === updateEmail.id ? updatedEmail : email)));
 		} catch (error) {
 			console.log('Error:', error);
 		}
@@ -69,11 +66,7 @@ export const EmailIndex = () => {
 	return (
 		<div className='email-index'>
 			<div className='aside-filter'>
-				<EmailFolderList
-					onSaveEmail={onSaveEmail}
-					filterBy={{ folder: filterBy.folder }}
-					onSetFilter={onSetFilter}
-				/>
+				<EmailFolderList onSaveEmail={onSaveEmail} filterBy={{ folder: filterBy.folder }} onSetFilter={onSetFilter} />
 			</div>
 			<div className='top-filter'>
 				<EmailFilter
@@ -88,11 +81,7 @@ export const EmailIndex = () => {
 				{pathname.includes('details') ? (
 					<EmailDetails />
 				) : (
-					<EmailList
-						emails={emails}
-						onRemoveEmail={onRemoveEmail}
-						onUpdateEmail={onUpdateEmail}
-					/>
+					<EmailList emails={emails} onRemoveEmail={onRemoveEmail} onUpdateEmail={onUpdateEmail} />
 				)}
 			</div>
 		</div>
