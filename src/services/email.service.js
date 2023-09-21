@@ -1,6 +1,5 @@
 import { storageService } from './async-storage.service';
 import { utilService } from './util.service';
-
 import inboxIcon from '../assets/svgs/inbox.svg';
 import starredIcon from '../assets/svgs/empty-star.svg';
 import sentIcon from '../assets/svgs/send.svg';
@@ -27,6 +26,7 @@ async function query(filterBy, sortBy) {
 
 	if (filterBy) {
 		let { inputSearch, mailStatus, folder } = filterBy;
+
 		switch (folder) {
 			case 'starred': {
 				emails = emails.filter((email) => email.isStarred);
@@ -36,15 +36,19 @@ async function query(filterBy, sortBy) {
 				emails = emails.filter((email) => email.from === loggedInUser.email);
 				break;
 			}
-			//TODO: all the other folders
-			// case 'Trash': {
-			// 	emails = emails.filter((email) => email.removedAt !== null);
-			// 	break;
-			// }
-			// case 'Draft': {
-			// }
-			default:
+			case 'trash': {
+				emails = emails.filter((email) => email.removedAt);
 				break;
+			}
+			case 'draft': {
+				//FIXME: add option to see the draft emails
+				emails = [];
+				break;
+			}
+			default: {
+				emails = emails.filter((email) => !email.removedAt && email.from !== loggedInUser.email);
+				break;
+			}
 		}
 
 		emails = emails.filter(
@@ -113,7 +117,7 @@ function _createEmails() {
 	}
 }
 
-const loggedInUser = {
+export const loggedInUser = {
 	email: 'user@appsus.com',
 	fullname: 'Yarin Matmoni',
 };

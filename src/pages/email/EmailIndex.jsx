@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { EmailFilter } from '../../components/emailFilter/EmailFilter';
 import { EmailList } from '../../components/emailList/EmailList';
-import { emailService } from '../../services/email.service';
+import { emailService, loggedInUser } from '../../services/email.service';
 import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
 import { EmailDetails } from '../emailDetails/EmailDetails';
 import './emailIndex.scss';
@@ -43,8 +43,7 @@ export const EmailIndex = () => {
 		}
 	};
 
-	const onRemoveEmail = async (event, emailId) => {
-		event.stopPropagation();
+	const onRemoveEmail = async (emailId) => {
 		try {
 			await emailService.remove(emailId);
 			setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
@@ -56,7 +55,11 @@ export const EmailIndex = () => {
 	const onUpdateEmail = async (updateEmail) => {
 		try {
 			const updatedEmail = await emailService.save(updateEmail);
-			setEmails((prevEmails) => prevEmails.map((email) => (email.id === updateEmail.id ? updatedEmail : email)));
+			setEmails((prevEmails) =>
+				prevEmails
+					.map((email) => (email.id === updateEmail.id ? updatedEmail : email))
+					.filter((email) => !email.removedAt),
+			);
 		} catch (error) {
 			console.log('Error:', error);
 		}
@@ -65,7 +68,7 @@ export const EmailIndex = () => {
 	const onSaveEmail = async (email) => {
 		try {
 			const emailToSave = await emailService.save(email);
-			setEmails((prevEmails) => [emailToSave, ...prevEmails]);
+			setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
 			navigate(`/email/${pathname.split('/').at(-2)}`);
 		} catch (error) {
 			console.log('Error:', error);

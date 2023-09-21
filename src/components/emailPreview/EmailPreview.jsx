@@ -32,6 +32,15 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		onUpdateEmail(newEmail);
 	};
 
+	const onDeleteMail = async (event, emailId, removedAt) => {
+		event.stopPropagation();
+		if (!removedAt) {
+			const currentTimestamp = Date.now();
+			const emailToTrash = { ...emailData, removedAt: currentTimestamp };
+			onUpdateEmail(emailToTrash);
+		} else onRemoveEmail(emailId);
+	};
+
 	return (
 		<div className='email-preview' data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)}>
 			<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
@@ -43,7 +52,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 				<div className='email-options'>
 					<img src={archive} alt='archive' />
 					<img src={emailData.isRead ? unReadEmail : readEmail} alt='open email' onClick={onSetRead} />
-					<img src={trash} alt='trash' onClick={(event) => onRemoveEmail(event, emailData.id)} />
+					<img src={trash} alt='trash' onClick={(event) => onDeleteMail(event, emailData.id, emailData.removedAt)} />
 				</div>
 			</div>
 		</div>
