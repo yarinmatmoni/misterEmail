@@ -1,39 +1,68 @@
-@import "../../assets/css/index.scss";
+@import '../../assets/css/index.scss';
 
-.email-filter {
-  background-color: $background-color;
-  height: 100%;
-  display: grid;
-  align-items: center;
+.email-filter-sort-container {
+	background-color: $background-color;
+	height: 100%;
+	display: grid;
+	align-items: center;
 
-  input[type="text"] {
-    width: 400px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: $background-color-input;
-  }
+	input[type='text'] {
+		width: 400px;
+		border: none;
+		border-radius: 20px;
+		outline: none;
+		padding: 8px 16px;
+		font-size: 16px;
+		background-color: $background-color-input;
+	}
 
-  .checkbox-filter {
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-    height: 100%;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: $background-color-white;
+	.checkbox-filter-sort {
+		background-color: $background-color-white;
+		height: 100%;
+		border-top-right-radius: 12px;
+		border-top-left-radius: 12px;
+		display: grid;
+		grid-auto-flow: column;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 16px;
 
-    label {
-      font-size: 16px;
-      margin-left: 3px;
-    }
+		.checkbox-filter {
+			label {
+				font-size: 16px;
+				margin-left: 3px;
+			}
 
-    input {
-      margin-left: 15px;
-      cursor: pointer;
-    }
-  }
+			input {
+				margin-left: 15px;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.sort-container {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 12px;
+
+		button {
+			padding: 4px 8px;
+			border-radius: 8px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			outline: none;
+
+			img {
+				margin-left: 4px;
+				height: 18px;
+				width: 18px;
+				transition: all 0.3s ease-in-out;
+
+				&[data-arrow='-1'] {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
 }

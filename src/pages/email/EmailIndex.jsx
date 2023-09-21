@@ -14,6 +14,7 @@ export const EmailIndex = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [emails, setEmails] = useState(null);
 	const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams, folder));
+	const [sortBy, setSortBy] = useState(emailService.getDefaultSort());
 	const [unreadCount, setUnreadCount] = useState(null);
 
 	useEffect(() => {
@@ -23,15 +24,19 @@ export const EmailIndex = () => {
 	useEffect(() => {
 		setSearchParams(filterBy);
 		loadMails();
-	}, [filterBy]);
+	}, [filterBy, sortBy]);
 
 	const onSetFilter = (fieldsToUpdate) => {
 		setFilterBy((prevFilterBy) => ({ ...prevFilterBy, ...fieldsToUpdate }));
 	};
 
+	const onSetSort = (fieldsToSort) => {
+		setSortBy((prevSortBy) => ({ ...prevSortBy, ...fieldsToSort }));
+	};
+
 	const loadMails = async () => {
 		try {
-			const emailsResponse = await emailService.query(filterBy);
+			const emailsResponse = await emailService.query(filterBy, sortBy);
 			setEmails(emailsResponse);
 		} catch (error) {
 			console.log('error:', error);
@@ -94,6 +99,8 @@ export const EmailIndex = () => {
 						mailStatus: filterBy.mailStatus,
 					}}
 					onSetFilter={onSetFilter}
+					sortBy={sortBy}
+					onSetSort={onSetSort}
 				/>
 			</div>
 			<div className='main'>
