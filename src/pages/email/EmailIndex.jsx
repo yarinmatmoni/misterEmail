@@ -14,7 +14,7 @@ export const EmailIndex = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [emails, setEmails] = useState(null);
 	const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams, folder));
-	const [sortBy, setSortBy] = useState(emailService.getDefaultSort());
+	const [sortBy, setSortBy] = useState(emailService.getSortByParams(searchParams));
 	const [unreadCount, setUnreadCount] = useState(null);
 
 	useEffect(() => {
@@ -22,7 +22,7 @@ export const EmailIndex = () => {
 	}, [emails]);
 
 	useEffect(() => {
-		setSearchParams(filterBy);
+		setSearchParams({ ...filterBy, ...sortBy });
 		loadMails();
 	}, [filterBy, sortBy]);
 

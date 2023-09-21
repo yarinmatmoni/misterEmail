@@ -57,6 +57,7 @@
 				margin-left: 4px;
 				height: 18px;
 				width: 18px;
+				pointer-events: none;
 				transition: all 0.3s ease-in-out;
 
 				&[data-arrow='-1'] {

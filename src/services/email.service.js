@@ -15,7 +15,7 @@ export const emailService = {
 	remove,
 	getById,
 	getSentAt,
-	getDefaultSort,
+	getSortByParams,
 };
 
 const STORAGE_KEY = 'emails';
@@ -128,18 +128,19 @@ function getFilterFromParams(searchParams, folder) {
 	return filterBy;
 }
 
+function getSortByParams(sortParams) {
+	const sortBy = {
+		date: sortParams.get('date') || 1,
+		subject: sortParams.get('subject') || 1,
+	};
+	return sortBy;
+}
+
 function getDefaultForm() {
 	return {
 		to: '',
 		subject: '',
 		body: '',
-	};
-}
-
-function getDefaultSort() {
-	return {
-		date: 1,
-		subject: 1,
 	};
 }
 
