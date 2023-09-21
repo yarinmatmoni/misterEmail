@@ -13,8 +13,10 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 	const { pathname } = useLocation();
 
 	const onPreviewClick = (emailId) => {
-		const newEmail = { ...emailData, isRead: !emailData.isRead };
-		onUpdateEmail(newEmail);
+		if (!emailData.isRead) {
+			const newEmail = { ...emailData, isRead: true };
+			onUpdateEmail(newEmail);
+		}
 		navigate(`${pathname}/details/${emailId}`);
 	};
 

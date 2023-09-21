@@ -1,78 +1,84 @@
-@import "../../assets/css/index.scss";
+@import '../../assets/css/index.scss';
 
 .email-folder-list {
-  background-color: $background-color;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 80px 1fr;
+	background-color: $background-color;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 80px 1fr;
 
-  .email-compose {
-    display: grid;
-    align-items: center;
-    justify-content: start;
-    padding-left: 8px;
+	.email-compose {
+		display: grid;
+		align-items: center;
+		justify-content: start;
+		padding-left: 8px;
 
-    button {
-      background-color: $background-color-primary;
-      color: $text-color-active;
-      font-weight: bold;
-      border-radius: 16px;
-      font-size: 15px;
-      width: 150px;
-      height: 56px;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
+		button {
+			background-color: $background-color-primary;
+			color: $text-color-active;
+			font-weight: bold;
+			border-radius: 16px;
+			font-size: 15px;
+			width: 150px;
+			height: 56px;
+			transition: all 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 5px;
 
-      img {
-        height: 22px;
-        width: 22px;
-      }
+			img {
+				height: 22px;
+				width: 22px;
+			}
 
-      &:hover {
-        box-shadow:
-          $box-shadow 0px 10px 36px 0px,
-          rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-      }
-    }
-  }
+			&:hover {
+				box-shadow: $box-shadow 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+			}
+		}
+	}
 
-  .folder-list {
-    padding: 0;
-    height: calc(100vh - ($header-height + 80px));
-    overflow: hidden;
+	.folder-list {
+		padding: 0;
+		height: calc(100vh - ($header-height + 80px));
+		overflow: hidden;
 
-    &:hover {
-      overflow: auto;
-    }
+		&:hover {
+			overflow: auto;
+		}
 
-    li {
-      height: 32px;
-      display: flex;
-      align-items: center;
-      padding: 0 12px 0 26px;
-      gap: 15px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      color: $text-color-bold;
-      width: 95%;
-      border-radius: 0 16px 16px 0;
+		li {
+			height: 32px;
+			align-items: center;
+			padding: 0 12px 0 26px;
+			gap: 15px;
+			cursor: pointer;
+			font-size: 16px;
+			color: #202124;
+			width: 95%;
+			border-radius: 0 16px 16px 0;
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-columns: auto 1fr auto;
 
-      &[data-folder="true"] {
-        background-color: $background-color-active-folder;
-      }
+			&[data-folder='true'] {
+				background-color: $background-color-active-folder;
+				font-weight: bold;
+			}
 
-      &:not([data-folder="true"]):hover {
-        background-color: $background-color-hover;
-      }
+			&:not([data-folder='true']):hover {
+				background-color: $background-color-hover;
+			}
 
-      img {
-        height: 20px;
-        width: 20px;
-      }
-    }
-  }
+			img {
+				height: 20px;
+				width: 20px;
+			}
+
+			span {
+				font-size: 12px;
+				font-weight: bold;
+				color: $text-color-bold;
+			}
+		}
+	}
 }

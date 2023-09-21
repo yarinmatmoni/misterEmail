@@ -14,6 +14,11 @@ export const EmailIndex = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [emails, setEmails] = useState(null);
 	const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams, folder));
+	const [unreadCount, setUnreadCount] = useState(null);
+
+	useEffect(() => {
+		onUpdateUnreadEmail();
+	}, [emails]);
 
 	useEffect(() => {
 		setSearchParams(filterBy);
@@ -62,11 +67,25 @@ export const EmailIndex = () => {
 		}
 	};
 
+	const onUpdateUnreadEmail = async () => {
+		try {
+			const unReadEmailsResponse = await emailService.query();
+			setUnreadCount(unReadEmailsResponse.filter((email) => !email.isRead).length);
+		} catch (error) {
+			console.log('error:', error);
+		}
+	};
+
 	if (!emails) return <div>Loading..</div>;
 	return (
 		<div className='email-index'>
 			<div className='aside-filter'>
-				<EmailFolderList onSaveEmail={onSaveEmail} filterBy={{ folder: filterBy.folder }} onSetFilter={onSetFilter} />
+				<EmailFolderList
+					onSaveEmail={onSaveEmail}
+					filterBy={{ folder: filterBy.folder }}
+					onSetFilter={onSetFilter}
+					unreadCount={unreadCount}
+				/>
 			</div>
 			<div className='top-filter'>
 				<EmailFilter
