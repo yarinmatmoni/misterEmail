@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { EmailFilter } from '../../components/emailFilter/EmailFilter';
-import { EmailList } from '../../components/emailList/EmailList';
+import { EmailFilter, EmailList, EmailFolderList } from '../../components/index';
 import { emailService, loggedInUser } from '../../services/email.service';
-import { EmailFolderList } from '../../components/emailFolderList/EmailFolderList';
 import { EmailDetails } from '../emailDetails/EmailDetails';
 import './emailIndex.scss';
 
