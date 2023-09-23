@@ -18,10 +18,14 @@ export const EmailFolderList = ({ onSaveEmail, filterBy, onSetFilter, unreadCoun
 		navigate(`/email/${folderName}`);
 	};
 
+	const onOpenCompose = () => {
+		if (!pathname.includes('compose')) navigate(`${pathname}/compose`);
+	};
+
 	return (
 		<div className='email-folder-list'>
 			<div className='email-compose'>
-				<button onClick={() => navigate(`${pathname}/compose`)}>
+				<button onClick={onOpenCompose}>
 					<img src={newIcon} alt='new' />
 					Compose
 				</button>
