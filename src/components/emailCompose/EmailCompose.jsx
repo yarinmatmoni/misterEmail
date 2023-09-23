@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
@@ -10,10 +10,21 @@ import './emailCompose.scss';
 
 export const EmailCompose = () => {
 	const navigate = useNavigate();
+	const intervalRef = useRef();
 	const { onSaveEmail } = useOutletContext();
 	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 	const [viewState, setViewState] = useState('normal');
+
+	useEffect(() => {
+		intervalRef.current = setInterval(() => {
+			console.log('saved!');
+		}, 5000);
+
+		return () => {
+			clearInterval(intervalRef.current);
+		};
+	}, []);
 
 	const handleOnChange = (event) => {
 		let { value, name: fieldName } = event.target;

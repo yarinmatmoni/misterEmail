@@ -76,7 +76,7 @@ export const EmailIndex = () => {
 	const onUpdateUnreadEmail = async () => {
 		try {
 			const unReadEmailsResponse = await emailService.query();
-			setUnreadCount(unReadEmailsResponse.filter((email) => !email.isRead).length);
+			setUnreadCount(unReadEmailsResponse.filter((email) => !email.isRead && email.from !== loggedInUser.email).length);
 		} catch (error) {
 			console.log('error:', error);
 		}
