@@ -69,7 +69,8 @@ export const EmailIndex = () => {
 				const emailToSave = await emailService.save(email);
 				setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
 			} else {
-				await emailService.saveToDraft(email);
+				if (!email.id) await emailService.saveToDraft(email);
+				else await onUpdateEmail(email);
 			}
 			navigate(`/email/${pathname.split('/').at(-2)}`);
 		} catch (error) {

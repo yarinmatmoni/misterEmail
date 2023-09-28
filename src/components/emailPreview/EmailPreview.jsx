@@ -2,7 +2,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import emptyStar from '../../assets/svgs/empty-star.svg';
 import fullStar from '../../assets/svgs/full-star.svg';
-import archive from '../../assets/svgs/archive.svg';
 import readEmail from '../../assets/svgs/mark_email_read.svg';
 import unReadEmail from '../../assets/svgs/unRead.svg';
 import trash from '../../assets/svgs/trash.svg';
@@ -17,7 +16,9 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 			const newEmail = { ...emailData, isRead: true };
 			onUpdateEmail(newEmail);
 		}
-		navigate(`${pathname}/details/${emailId}`);
+
+		if (emailData.sentAt) navigate(`${pathname}/details/${emailId}`);
+		else navigate(`/email/${pathname.split('/').at(-1)}/compose/${emailId}`);
 	};
 
 	const onSetStar = async (event) => {
@@ -45,12 +46,11 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		<div className='email-preview' data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)}>
 			<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
 			<div className='emails-preview-details'>
-				<div className='from-email'>{emailData.from}</div>
+				{!emailData.sentAt ? <div className='draft'>Draft</div> : <div className='from-email'>{emailData.from}</div>}
 				<div className='subject'>{emailData.subject}</div>
 				<div className='body'>{emailData.body}</div>
 				<div className='date'>{emailService.getSentAt(emailData.sentAt)}</div>
 				<div className='email-options'>
-					<img src={archive} alt='archive' />
 					<img src={emailData.isRead ? unReadEmail : readEmail} alt='open email' onClick={onSetRead} />
 					<img src={trash} alt='trash' onClick={(event) => onDeleteMail(event, emailData.id, emailData.removedAt)} />
 				</div>

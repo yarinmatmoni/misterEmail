@@ -13,7 +13,7 @@ export const App = () => {
 				<Route path='/about' element={<About />} />
 				<Route path='/email/:folder' element={<EmailIndex />}>
 					<Route path='/email/:folder/details/:emailId' />
-					<Route path='/email/:folder/compose' element={<EmailCompose />} />
+					<Route path='/email/:folder/compose/:emailId?' element={<EmailCompose />} />
 				</Route>
 			</Routes>
 		</Router>

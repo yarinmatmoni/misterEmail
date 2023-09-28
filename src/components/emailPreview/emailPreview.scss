@@ -11,7 +11,16 @@
 	&[data-is-read='true'] {
 		background-color: $background-color-readMail;
 
-		.emails-preview-details div {
+		.emails-preview-details {
+			div {
+				font-weight: initial;
+			}
+		}
+	}
+
+	.emails-preview-details {
+		.draft {
+			color: $danger-color;
 			font-weight: initial;
 		}
 	}

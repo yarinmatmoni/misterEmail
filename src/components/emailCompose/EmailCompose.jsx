@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext, useParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
 import openFullScreen from '../../assets/svgs/open_in_full.svg';
@@ -11,6 +11,7 @@ import './emailCompose.scss';
 export const EmailCompose = () => {
 	const timeoutId = useRef();
 	const navigate = useNavigate();
+	const { emailId } = useParams();
 	const { onSaveEmail } = useOutletContext();
 	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
@@ -25,6 +26,17 @@ export const EmailCompose = () => {
 		return () => clearTimeout(timeoutId.current);
 	}, [editForm]);
 
+	useEffect(() => {
+		loadEmail();
+	}, []);
+
+	const loadEmail = async () => {
+		if (emailId) {
+			const email = await emailService.getById(emailId);
+			setEditForm(email);
+		}
+	};
+
 	const handleOnChange = (event) => {
 		let { value, name: fieldName } = event.target;
 		setEditForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
@@ -32,11 +44,13 @@ export const EmailCompose = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		onSaveEmail(editForm);
+		const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
+		onSaveEmail(emailToSent);
 	};
 
 	const onClose = () => {
-		onSaveEmail(draft, true);
+		if (!emailId) onSaveEmail(draft, true); // true - save as draft
+		else onSaveEmail(editForm, true);
 		navigate(`/email/${pathname.split('/')[2]}`);
 	};
 
