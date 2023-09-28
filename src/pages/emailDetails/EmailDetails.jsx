@@ -28,14 +28,14 @@ export const EmailDetails = () => {
 	const onRemoveEmail = async () => {
 		try {
 			await emailService.remove(email.id);
-			navigate(`/email/${pathname.split('/')[2]}`);
+			navigate(`/email/${pathname.split('/').at(-2)}`);
 		} catch (error) {
 			console.log('Error:', error);
 		}
 	};
 
 	return (
-		<div className='email-details'>
+		<>
 			{!email ? (
 				<div>Loading...</div>
 			) : (
@@ -56,6 +56,6 @@ export const EmailDetails = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</>
 	);
 };

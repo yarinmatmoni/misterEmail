@@ -93,7 +93,7 @@ function saveToDraft(emailToSave) {
 	return storageService.post(STORAGE_KEY, createEmail(emailToSave.subject, emailToSave.body, null, null));
 }
 
-function createEmail(subject = '', body = '', isRead = false, isStarred = false, sentAt = null) {
+function createEmail(subject = '[no subject]', body = '[no body]', isRead = false, isStarred = false, sentAt = null) {
 	return {
 		id: utilService.makeId(),
 		subject: subject,

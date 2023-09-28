@@ -49,7 +49,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 				{!emailData.sentAt ? <div className='draft'>Draft</div> : <div className='from-email'>{emailData.from}</div>}
 				<div className='subject'>{emailData.subject}</div>
 				<div className='body'>{emailData.body}</div>
-				<div className='date'>{emailService.getSentAt(emailData.sentAt)}</div>
+				<div className='date'>{emailData.sentAt && emailService.getSentAt(emailData.sentAt)}</div>
 				<div className='email-options'>
 					<img src={emailData.isRead ? unReadEmail : readEmail} alt='open email' onClick={onSetRead} />
 					<img src={trash} alt='trash' onClick={(event) => onDeleteMail(event, emailData.id, emailData.removedAt)} />

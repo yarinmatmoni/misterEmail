@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { EmailFilter, EmailList, EmailFolderList } from '../../components/index';
 import { emailService, loggedInUser } from '../../services/email.service';
 import { EmailDetails } from '../emailDetails/EmailDetails';
@@ -7,7 +7,6 @@ import './emailIndex.scss';
 
 export const EmailIndex = () => {
 	const { pathname } = useLocation();
-	const navigate = useNavigate();
 	const { folder } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [emails, setEmails] = useState(null);
@@ -72,7 +71,6 @@ export const EmailIndex = () => {
 				if (!email.id) await emailService.saveToDraft(email);
 				else await onUpdateEmail(email);
 			}
-			navigate(`/email/${pathname.split('/').at(-2)}`);
 		} catch (error) {
 			console.log('Error:', error);
 		}
