@@ -63,10 +63,14 @@ export const EmailIndex = () => {
 		}
 	};
 
-	const onSaveEmail = async (email) => {
+	const onSaveEmail = async (email, saveAsDraft = false) => {
 		try {
-			const emailToSave = await emailService.save(email);
-			setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
+			if (!saveAsDraft) {
+				const emailToSave = await emailService.save(email);
+				setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
+			} else {
+				await emailService.saveToDraft(email);
+			}
 			navigate(`/email/${pathname.split('/').at(-2)}`);
 		} catch (error) {
 			console.log('Error:', error);

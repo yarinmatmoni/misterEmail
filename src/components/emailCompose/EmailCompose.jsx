@@ -9,22 +9,21 @@ import maximize from '../../assets/svgs/maximize.svg';
 import './emailCompose.scss';
 
 export const EmailCompose = () => {
+	const timeoutId = useRef();
 	const navigate = useNavigate();
-	const intervalRef = useRef();
 	const { onSaveEmail } = useOutletContext();
 	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 	const [viewState, setViewState] = useState('normal');
+	const [draft, setDraft] = useState(editForm);
 
 	useEffect(() => {
-		intervalRef.current = setInterval(() => {
-			console.log('saved!');
+		timeoutId.current = setTimeout(() => {
+			setDraft((prevDraft) => ({ ...prevDraft, ...editForm }));
 		}, 5000);
 
-		return () => {
-			clearInterval(intervalRef.current);
-		};
-	}, []);
+		return () => clearTimeout(timeoutId.current);
+	}, [editForm]);
 
 	const handleOnChange = (event) => {
 		let { value, name: fieldName } = event.target;
@@ -34,6 +33,11 @@ export const EmailCompose = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		onSaveEmail(editForm);
+	};
+
+	const onClose = () => {
+		onSaveEmail(draft, true);
+		navigate(`/email/${pathname.split('/')[2]}`);
 	};
 
 	const handleViewState = (view) => {
@@ -69,7 +73,7 @@ export const EmailCompose = () => {
 						alt='full screen'
 						onClick={() => handleViewState('fullScreen')}
 					/>
-					<img onClick={() => navigate(`/email/${pathname.split('/')[2]}`)} src={close} alt='close' />
+					<img onClick={onClose} src={close} alt='close' />
 				</div>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='to'>

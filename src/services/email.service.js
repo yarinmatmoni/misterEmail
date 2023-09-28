@@ -15,6 +15,7 @@ export const emailService = {
 	getById,
 	getSentAt,
 	getSortByParams,
+	saveToDraft,
 };
 
 const STORAGE_KEY = 'emails';
@@ -41,8 +42,7 @@ async function query(filterBy, sortBy) {
 				break;
 			}
 			case 'draft': {
-				//FIXME: add option to see the draft emails
-				emails = [];
+				emails = emails.filter((email) => !email.sentAt && !email.removedAt);
 				break;
 			}
 			default: {
@@ -84,22 +84,26 @@ function save(emailToSave) {
 	} else {
 		return storageService.post(
 			STORAGE_KEY,
-			createEmail(emailToSave.subject, emailToSave.body, null, null, loggedInUser.email, emailToSave.to),
+			createEmail(emailToSave.subject, emailToSave.body, null, null, Math.floor(Date.now() / 1000)),
 		);
 	}
 }
 
-function createEmail(subject, body, isRead, isStarred, from, to) {
+function saveToDraft(emailToSave) {
+	return storageService.post(STORAGE_KEY, createEmail(emailToSave.subject, emailToSave.body, null, null));
+}
+
+function createEmail(subject = '', body = '', isRead = false, isStarred = false, sentAt = null) {
 	return {
 		id: utilService.makeId(),
-		subject: subject || 'Subject',
-		body: body || 'Body',
-		isRead: isRead || false,
-		isStarred: isStarred || false,
-		sentAt: Math.floor(Date.now() / 1000),
+		subject: subject,
+		body: body,
+		isRead: isRead,
+		isStarred: isStarred,
+		sentAt: sentAt,
 		removedAt: null,
-		from: from || 'momo@momo.com',
-		to: to || 'user@appsus.com',
+		from: loggedInUser.email,
+		to: 'yarinmatmoni@gmail.com',
 	};
 }
 
@@ -119,7 +123,7 @@ function _createEmails() {
 
 export const loggedInUser = {
 	email: 'user@appsus.com',
-	fullname: 'Yarin Matmoni',
+	fullName: 'Yarin Matmoni',
 };
 
 function getFilterFromParams(searchParams, folder) {
