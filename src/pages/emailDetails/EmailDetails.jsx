@@ -6,7 +6,7 @@ import trash from '../../assets/svgs/trash.svg';
 import back from '../../assets/svgs/arrow-back.svg';
 import './emailDetails.scss';
 
-export const EmailDetails = () => {
+export const EmailDetails = ({ onRemoveEmail }) => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const { emailId } = useParams();
@@ -25,13 +25,9 @@ export const EmailDetails = () => {
 		}
 	};
 
-	const onRemoveEmail = async () => {
-		try {
-			await emailService.remove(email.id);
-			navigate(`/email/${pathname.split('/').at(-2)}`);
-		} catch (error) {
-			console.log('Error:', error);
-		}
+	const handleOnRemove = () => {
+		onRemoveEmail(emailId);
+		navigate(-1);
 	};
 
 	return (
@@ -41,14 +37,14 @@ export const EmailDetails = () => {
 			) : (
 				<div className='container'>
 					<div className='options'>
-						<img src={back} alt='back' onClick={() => navigate(`/email/${pathname.split('/')[2]}`)} />
-						<img src={trash} alt='delete' onClick={onRemoveEmail} />
+						<img src={back} alt='back' onClick={() => navigate(-1)} />
+						<img src={trash} alt='delete' onClick={handleOnRemove} />
 					</div>
 					<div className='email-content'>
 						<div className='subject'>{email.subject}</div>
 						<div className='from-email'>
 							<div>
-								<span>From :</span> {email.from}
+								<span>{`${pathname.includes('sent') ? 'TO :' : 'From :'}`}</span> {email.from}
 							</div>
 							<div>{emailService.getSentAt(email.sentAt)}</div>
 						</div>

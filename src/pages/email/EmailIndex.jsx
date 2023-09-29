@@ -109,7 +109,7 @@ export const EmailIndex = () => {
 			</div>
 			<div className='main'>
 				{pathname.includes('details') ? (
-					<EmailDetails />
+					<EmailDetails onRemoveEmail={onRemoveEmail} />
 				) : (
 					<EmailList emails={emails} onRemoveEmail={onRemoveEmail} onUpdateEmail={onUpdateEmail} />
 				)}

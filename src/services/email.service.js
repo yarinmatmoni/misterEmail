@@ -20,6 +20,11 @@ export const emailService = {
 
 const STORAGE_KEY = 'emails';
 
+export const loggedInUser = {
+	email: 'user@appsus.com',
+	fullName: 'Yarin Matmoni',
+};
+
 _createEmails();
 
 async function query(filterBy, sortBy) {
@@ -93,7 +98,15 @@ function saveToDraft(emailToSave) {
 	return storageService.post(STORAGE_KEY, createEmail(emailToSave.subject, emailToSave.body, null, null));
 }
 
-function createEmail(subject = '[no subject]', body = '[no body]', isRead = false, isStarred = false, sentAt = null) {
+function createEmail(
+	subject = '[no subject]',
+	body = '[no body]',
+	isRead = false,
+	isStarred = false,
+	sentAt = null,
+	from = loggedInUser.email,
+	to = 'yarinmatmoni@gmail.com',
+) {
 	return {
 		id: utilService.makeId(),
 		subject: subject,
@@ -102,8 +115,8 @@ function createEmail(subject = '[no subject]', body = '[no body]', isRead = fals
 		isStarred: isStarred,
 		sentAt: sentAt,
 		removedAt: null,
-		from: loggedInUser.email,
-		to: 'yarinmatmoni@gmail.com',
+		from: from,
+		to: to,
 	};
 }
 
@@ -113,18 +126,26 @@ function _createEmails() {
 		emails = [];
 
 		for (let i = 0; i < 20; i++) {
-			let mail = createEmail('Miss You!' + i, 'Body - Miss You  + i', false, false);
+			let mail = createEmail('Miss You!' + i, 'Body - Miss You' + i, null, null, Math.floor(Date.now() / 1000));
+			emails.push(mail);
+		}
+
+		for (let i = 0; i < 20; i++) {
+			let mail = createEmail(
+				'Miss You!' + i,
+				'Body - Miss You' + i,
+				null,
+				null,
+				Math.floor(Date.now() / 1000),
+				'yarinmatmoni@gmail.com',
+				loggedInUser.email,
+			);
 			emails.push(mail);
 		}
 
 		utilService.saveToStorage(STORAGE_KEY, emails);
 	}
 }
-
-export const loggedInUser = {
-	email: 'user@appsus.com',
-	fullName: 'Yarin Matmoni',
-};
 
 function getFilterFromParams(searchParams, folder) {
 	const filterBy = {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation, useOutletContext, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
 import openFullScreen from '../../assets/svgs/open_in_full.svg';
@@ -13,7 +13,6 @@ export const EmailCompose = () => {
 	const navigate = useNavigate();
 	const { emailId } = useParams();
 	const { onSaveEmail } = useOutletContext();
-	const { pathname } = useLocation();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 	const [viewState, setViewState] = useState('normal');
 	const [draft, setDraft] = useState(editForm);
@@ -46,13 +45,13 @@ export const EmailCompose = () => {
 		event.preventDefault();
 		const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
 		onSaveEmail(emailToSent);
-		navigate(`/email/${pathname.split('/').at(-2)}`);
+		navigate(-1);
 	};
 
 	const onClose = () => {
 		if (!emailId) onSaveEmail(draft, true); // true - save as draft
 		else onSaveEmail(editForm, true);
-		navigate(`/email/${pathname.split('/').at(-2)}`);
+		navigate(-1);
 	};
 
 	const handleViewState = (view) => {
