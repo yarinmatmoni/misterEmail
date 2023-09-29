@@ -25,9 +25,13 @@ export const EmailDetails = ({ onRemoveEmail }) => {
 		}
 	};
 
+	const handleBack = () => {
+		navigate(`/email/${pathname.split('/').at(2)}`);
+	};
+
 	const handleOnRemove = () => {
 		onRemoveEmail(emailId);
-		navigate(-1);
+		navigate(`/email/${pathname.split('/').at(2)}`);
 	};
 
 	return (
@@ -37,7 +41,7 @@ export const EmailDetails = ({ onRemoveEmail }) => {
 			) : (
 				<div className='container'>
 					<div className='options'>
-						<img src={back} alt='back' onClick={() => navigate(-1)} />
+						<img src={back} alt='back' onClick={handleBack} />
 						<img src={trash} alt='delete' onClick={handleOnRemove} />
 					</div>
 					<div className='email-content'>

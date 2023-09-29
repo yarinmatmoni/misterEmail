@@ -39,7 +39,7 @@ async function query(filterBy, sortBy) {
 				break;
 			}
 			case 'sent': {
-				emails = emails.filter((email) => email.from === loggedInUser.email);
+				emails = emails.filter((email) => email.from === loggedInUser.email && email.sentAt);
 				break;
 			}
 			case 'trash': {

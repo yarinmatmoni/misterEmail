@@ -47,8 +47,8 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 			<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
 			<div className='emails-preview-details'>
 				{!emailData.sentAt ? <div className='draft'>Draft</div> : <div className='from-email'>{emailData.from}</div>}
-				<div className='subject'>{emailData.subject}</div>
-				<div className='body'>{emailData.body}</div>
+				<div className='subject'>{emailData.subject || '[no subject]'}</div>
+				<div className='body'>{emailData.body || '[no body]'}</div>
 				<div className='date'>{emailData.sentAt && emailService.getSentAt(emailData.sentAt)}</div>
 				<div className='email-options'>
 					<img src={emailData.isRead ? unReadEmail : readEmail} alt='open email' onClick={onSetRead} />

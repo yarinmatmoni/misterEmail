@@ -65,8 +65,11 @@ export const EmailIndex = () => {
 	const onSaveEmail = async (email, saveAsDraft = false) => {
 		try {
 			if (!saveAsDraft) {
-				const emailToSave = await emailService.save(email);
-				setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
+				//FIXME: check if its ok
+				//const emailToSave = await emailService.save(email);
+				// setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
+				await emailService.save(email);
+				loadMails();
 			} else {
 				if (!email.id) await emailService.saveToDraft(email);
 				else await onUpdateEmail(email);
