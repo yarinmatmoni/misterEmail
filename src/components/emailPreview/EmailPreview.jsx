@@ -33,13 +33,13 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		onUpdateEmail(newEmail);
 	};
 
-	const onDeleteMail = async (event, emailId, removedAt) => {
+	const onDeleteMail = async (event) => {
 		event.stopPropagation();
-		if (!removedAt) {
+		if (!emailData.removedAt) {
 			const currentTimestamp = Date.now();
 			const emailToTrash = { ...emailData, removedAt: currentTimestamp };
 			onUpdateEmail(emailToTrash);
-		} else onRemoveEmail(emailId);
+		} else onRemoveEmail(emailData.id);
 	};
 
 	return (
@@ -52,7 +52,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 				<div className='date'>{emailData.sentAt && emailService.getSentAt(emailData.sentAt)}</div>
 				<div className='email-options'>
 					<img src={emailData.isRead ? unReadEmail : readEmail} alt='open email' onClick={onSetRead} />
-					<img src={trash} alt='trash' onClick={(event) => onDeleteMail(event, emailData.id, emailData.removedAt)} />
+					<img src={trash} alt='trash' onClick={(event) => onDeleteMail(event)} />
 				</div>
 			</div>
 		</div>
