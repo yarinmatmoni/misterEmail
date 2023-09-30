@@ -16,6 +16,7 @@ export const EmailIndex = () => {
 
 	useEffect(() => {
 		onUpdateUnreadEmail();
+		loadMails();
 	}, [emails]);
 
 	useEffect(() => {
@@ -43,7 +44,6 @@ export const EmailIndex = () => {
 	const onRemoveEmail = async (emailId) => {
 		try {
 			await emailService.remove(emailId);
-			setEmails((prevEmails) => prevEmails.filter((email) => email.id !== emailId));
 		} catch (error) {
 			console.log('error:', error);
 		}
@@ -51,12 +51,7 @@ export const EmailIndex = () => {
 
 	const onUpdateEmail = async (updateEmail) => {
 		try {
-			const updatedEmail = await emailService.save(updateEmail);
-			setEmails((prevEmails) =>
-				prevEmails
-					.map((email) => (email.id === updateEmail.id ? updatedEmail : email))
-					.filter((email) => !email.removedAt),
-			);
+			await emailService.save(updateEmail);
 		} catch (error) {
 			console.log('Error:', error);
 		}
@@ -64,15 +59,11 @@ export const EmailIndex = () => {
 
 	const onSaveEmail = async (email, saveAsDraft = false) => {
 		try {
-			if (!saveAsDraft) {
-				//FIXME: check if its ok
-				//const emailToSave = await emailService.save(email);
-				// setEmails((prevEmails) => [emailToSave, ...prevEmails].filter((email) => email.from !== loggedInUser.email));
-				await emailService.save(email);
-				loadMails();
-			} else {
+			if (saveAsDraft) {
 				if (!email.id) await emailService.saveToDraft(email);
 				else await onUpdateEmail(email);
+			} else {
+				await emailService.save(email);
 			}
 		} catch (error) {
 			console.log('Error:', error);

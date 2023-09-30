@@ -17,10 +17,12 @@ export const EmailCompose = () => {
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 	const [viewState, setViewState] = useState('normal');
 	const [draft, setDraft] = useState(editForm);
+	const [title, setTitle] = useState('New Message');
 
 	useEffect(() => {
 		timeoutId.current = setTimeout(() => {
 			setDraft((prevDraft) => ({ ...prevDraft, ...editForm }));
+			setTitle('Save as draft');
 		}, 5000);
 
 		return () => clearTimeout(timeoutId.current);
@@ -77,7 +79,7 @@ export const EmailCompose = () => {
 			{viewState === 'fullScreen' && <div className='dark'></div>}
 			<div className={`compose ${viewState}`}>
 				<div className='top-details'>
-					<div className='top-title'>New Message</div>
+					<div className='top-title'>{title}</div>
 					<img
 						src={viewState === 'minimize' ? maximize : minimize}
 						alt='minimize'
