@@ -65,16 +65,21 @@ export const EmailIndex = () => {
 	};
 
 	const onSaveEmail = async (email, saveAsDraft = false) => {
-		// try {
-		// 	if (saveAsDraft) {
-		// 		if (!email.id) await emailService.saveToDraft(email);
-		// 		else await onUpdateEmail(email);
-		// 	} else {
-		// 		await emailService.save(email);
-		// 	}
-		// } catch (error) {
-		// 	console.log('Error:', error);
-		// }
+		try {
+			if (saveAsDraft) {
+				if (!email.id) {
+					await emailService.saveToDraft(email);
+				} else {
+					const updateEmail = { ...email, isRead: true };
+					await onUpdateEmail(updateEmail);
+				}
+			} else {
+				await emailService.save(email);
+			}
+			loadMails();
+		} catch (error) {
+			console.log('Error:', error);
+		}
 	};
 
 	const onUpdateUnreadEmail = async () => {
