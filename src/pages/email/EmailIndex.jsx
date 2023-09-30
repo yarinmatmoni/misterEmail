@@ -16,7 +16,6 @@ export const EmailIndex = () => {
 
 	useEffect(() => {
 		onUpdateUnreadEmail();
-		loadMails();
 	}, [emails]);
 
 	useEffect(() => {
@@ -41,9 +40,16 @@ export const EmailIndex = () => {
 		}
 	};
 
-	const onRemoveEmail = async (emailId) => {
+	const onRemoveEmail = async (email) => {
 		try {
-			await emailService.remove(emailId);
+			if (!email.removedAt) {
+				const currentTimestamp = Math.floor(Date.now() / 1000);
+				const emailToTrash = { ...email, removedAt: currentTimestamp };
+				await emailService.save(emailToTrash);
+			} else {
+				await emailService.remove(email.id);
+			}
+			setEmails((prevEmails) => prevEmails.filter((e) => e.id !== email.id));
 		} catch (error) {
 			console.log('error:', error);
 		}
@@ -52,22 +58,23 @@ export const EmailIndex = () => {
 	const onUpdateEmail = async (updateEmail) => {
 		try {
 			await emailService.save(updateEmail);
+			setEmails((prevEmails) => prevEmails.map((email) => (email.id === updateEmail.id ? updateEmail : email)));
 		} catch (error) {
 			console.log('Error:', error);
 		}
 	};
 
 	const onSaveEmail = async (email, saveAsDraft = false) => {
-		try {
-			if (saveAsDraft) {
-				if (!email.id) await emailService.saveToDraft(email);
-				else await onUpdateEmail(email);
-			} else {
-				await emailService.save(email);
-			}
-		} catch (error) {
-			console.log('Error:', error);
-		}
+		// try {
+		// 	if (saveAsDraft) {
+		// 		if (!email.id) await emailService.saveToDraft(email);
+		// 		else await onUpdateEmail(email);
+		// 	} else {
+		// 		await emailService.save(email);
+		// 	}
+		// } catch (error) {
+		// 	console.log('Error:', error);
+		// }
 	};
 
 	const onUpdateUnreadEmail = async () => {
@@ -103,7 +110,7 @@ export const EmailIndex = () => {
 			</div>
 			<div className='main'>
 				{pathname.includes('details') ? (
-					<EmailDetails onRemoveEmail={onRemoveEmail} onUpdateEmail={onUpdateEmail} />
+					<EmailDetails onRemoveEmail={onRemoveEmail} />
 				) : (
 					<EmailList emails={emails} onRemoveEmail={onRemoveEmail} onUpdateEmail={onUpdateEmail} />
 				)}

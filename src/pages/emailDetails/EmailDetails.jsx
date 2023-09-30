@@ -6,7 +6,7 @@ import trash from '../../assets/svgs/trash.svg';
 import back from '../../assets/svgs/arrow-back.svg';
 import './emailDetails.scss';
 
-export const EmailDetails = ({ onRemoveEmail, onUpdateEmail }) => {
+export const EmailDetails = ({ onRemoveEmail }) => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const { emailId } = useParams();
@@ -30,11 +30,7 @@ export const EmailDetails = ({ onRemoveEmail, onUpdateEmail }) => {
 	};
 
 	const handleOnRemove = async () => {
-		if (!email.removedAt) {
-			const currentTimestamp = Date.now();
-			const emailToTrash = { ...email, removedAt: currentTimestamp };
-			await onUpdateEmail(emailToTrash);
-		} else await onRemoveEmail(email.id);
+		await onRemoveEmail(email);
 		navigate(`/email/${pathname.split('/').at(2)}`);
 	};
 

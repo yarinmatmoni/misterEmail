@@ -35,11 +35,7 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 
 	const onDeleteMail = async (event) => {
 		event.stopPropagation();
-		if (!emailData.removedAt) {
-			const currentTimestamp = Date.now();
-			const emailToTrash = { ...emailData, removedAt: currentTimestamp };
-			onUpdateEmail(emailToTrash);
-		} else onRemoveEmail(emailData.id);
+		await onRemoveEmail(emailData);
 	};
 
 	return (
