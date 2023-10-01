@@ -6,6 +6,7 @@ import readEmail from '../../assets/svgs/mark_email_read.svg';
 import unReadEmail from '../../assets/svgs/unRead.svg';
 import trash from '../../assets/svgs/trash.svg';
 import './emailPreview.scss';
+import { showUserMsg } from '../../services/event-bus.service';
 
 export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 	const navigate = useNavigate();
@@ -31,6 +32,8 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		event.stopPropagation();
 		const newEmail = { ...emailData, isRead: !emailData.isRead };
 		onUpdateEmail(newEmail);
+		if (newEmail.isRead) showUserMsg('Conversation marked as read.');
+		else showUserMsg('Conversation marked as unread.');
 	};
 
 	const onDeleteMail = async (event) => {

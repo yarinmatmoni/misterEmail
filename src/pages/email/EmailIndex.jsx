@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { EmailFilter, EmailList, EmailFolderList } from '../../components/index';
 import { emailService, loggedInUser } from '../../services/email.service';
+import { showUserMsg } from '../../services/event-bus.service';
 import { EmailDetails } from '../emailDetails/EmailDetails';
 import './emailIndex.scss';
 
@@ -46,8 +47,10 @@ export const EmailIndex = () => {
 				const currentTimestamp = Math.floor(Date.now() / 1000);
 				const emailToTrash = { ...email, removedAt: currentTimestamp };
 				await emailService.save(emailToTrash);
+				showUserMsg('Conversation moved to Bin.');
 			} else {
 				await emailService.remove(email.id);
+				showUserMsg('Conversation deleted forever.');
 			}
 			setEmails((prevEmails) => prevEmails.filter((e) => e.id !== email.id));
 		} catch (error) {

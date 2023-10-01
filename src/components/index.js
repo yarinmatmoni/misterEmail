@@ -5,5 +5,6 @@ import { EmailList } from './emailList/EmailList';
 import { EmailPreview } from './emailPreview/EmailPreview';
 import { Header } from './header/Header';
 import { Navbar } from './navbar/Navbar';
+import { UserMessage } from './userMessage/UserMessage';
 
-export { EmailCompose, EmailFilter, EmailFolderList, EmailList, EmailPreview, Header, Navbar };
+export { EmailCompose, EmailFilter, EmailFolderList, EmailList, EmailPreview, Header, Navbar, UserMessage };

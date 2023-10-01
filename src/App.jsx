@@ -2,7 +2,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/home/Home';
 import { About } from './pages/aboutUs/About';
 import { EmailIndex } from './pages/email/EmailIndex';
-import { Header, EmailCompose } from './components/index';
+import { Header, EmailCompose, UserMessage } from './components/index';
 
 export const App = () => {
 	return (
@@ -16,6 +16,7 @@ export const App = () => {
 					<Route path='/email/:folder/compose/:emailId?' element={<EmailCompose />} />
 				</Route>
 			</Routes>
+			<UserMessage />
 		</Router>
 	);
 };
