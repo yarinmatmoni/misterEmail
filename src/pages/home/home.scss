@@ -1,5 +1,25 @@
+@import '../../assets/css/index.scss';
+
 .homePage {
-  h1 {
-    text-align: center;
-  }
+	height: calc(100vh - $header-height);
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+
+	h1 {
+		margin-bottom: 20px;
+	}
+
+	a {
+		background-color: gray;
+		color: white;
+		padding: 8px 16px;
+		border-radius: 6px;
+		transition: all 0.3s ease-in-out;
+
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
 }

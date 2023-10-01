@@ -114,7 +114,7 @@ function createEmail(
 	isStarred = false,
 	sentAt = null,
 	from = loggedInUser.email,
-	to = 'yarinmatmoni@gmail.com',
+	to = '',
 ) {
 	return {
 		id: utilService.makeId(),

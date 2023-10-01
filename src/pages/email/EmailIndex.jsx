@@ -54,6 +54,7 @@ export const EmailIndex = () => {
 			}
 			setEmails((prevEmails) => prevEmails.filter((e) => e.id !== email.id));
 		} catch (error) {
+			showUserMsg('Failed to remove conversation.');
 			console.log('error:', error);
 		}
 	};
