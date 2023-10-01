@@ -36,6 +36,7 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort }) => {
 				autoComplete='off'
 			/>
 			<div className='checkbox-filter-sort'>
+				<input type='checkbox' />
 				<div className='checkbox-filter'>
 					<input
 						type='checkbox'

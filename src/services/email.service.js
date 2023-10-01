@@ -115,6 +115,7 @@ function createEmail(
 	sentAt = null,
 	from = loggedInUser.email,
 	to = '',
+	isSelected = false,
 ) {
 	return {
 		id: utilService.makeId(),
@@ -126,6 +127,7 @@ function createEmail(
 		removedAt: null,
 		from: from,
 		to: to,
+		isSelected: isSelected,
 	};
 }
 

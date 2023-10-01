@@ -24,6 +24,10 @@ li {
 	list-style: none;
 }
 
+input[type='checkbox'] {
+	cursor: pointer;
+}
+
 *::-webkit-scrollbar {
 	display: initial;
 	width: 8px;

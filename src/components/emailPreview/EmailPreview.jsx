@@ -1,12 +1,12 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
+import { showUserMsg } from '../../services/event-bus.service';
 import emptyStar from '../../assets/svgs/empty-star.svg';
 import fullStar from '../../assets/svgs/full-star.svg';
 import readEmail from '../../assets/svgs/mark_email_read.svg';
 import unReadEmail from '../../assets/svgs/unRead.svg';
 import trash from '../../assets/svgs/trash.svg';
 import './emailPreview.scss';
-import { showUserMsg } from '../../services/event-bus.service';
 
 export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 	const navigate = useNavigate();
@@ -41,8 +41,13 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		await onRemoveEmail(emailData);
 	};
 
+	const onSelectEmail = (event) => {
+		event.stopPropagation();
+	};
+
 	return (
 		<div className='email-preview' data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)}>
+			<input type='checkbox' onClick={onSelectEmail} />
 			<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
 			<div className='emails-preview-details'>
 				{!emailData.sentAt ? <div className='draft'>Draft</div> : <div className='from-email'>{emailData.from}</div>}

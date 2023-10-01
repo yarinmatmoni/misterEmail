@@ -26,16 +26,26 @@
 		align-items: center;
 		justify-content: flex-start;
 		gap: 16px;
+		padding: 0 16px;
+
+		input {
+			cursor: pointer;
+		}
 
 		.checkbox-filter {
+			display: flex;
+			align-items: center;
+			justify-content: flex;
+			border-left: 2px solid $line-color;
+			height: 45%;
+
 			label {
 				font-size: 16px;
 				margin-left: 3px;
 			}
 
 			input {
-				margin-left: 15px;
-				cursor: pointer;
+				margin-left: 10px;
 			}
 		}
 	}
