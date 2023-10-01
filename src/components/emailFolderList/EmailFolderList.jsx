@@ -34,7 +34,7 @@ export const EmailFolderList = ({ onSaveEmail, filterBy, onSetFilter, unreadCoun
 				{folderList.map((folder) => (
 					<li
 						key={folder.name}
-						data-folder={folder.name === pathname.split('/').at(-1)}
+						data-folder={pathname.includes(folder.name)}
 						onClick={() => handleSelectFolder(folder.name)}
 					>
 						<img src={folder.icon} alt={folder.name} />

@@ -26,12 +26,12 @@ export const EmailDetails = ({ onRemoveEmail }) => {
 	};
 
 	const handleBack = () => {
-		navigate(`/email/${pathname.split('/').at(2)}`);
+		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
 	const handleOnRemove = async () => {
 		await onRemoveEmail(email);
-		navigate(`/email/${pathname.split('/').at(2)}`);
+		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
 	return (

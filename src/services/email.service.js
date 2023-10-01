@@ -16,14 +16,23 @@ export const emailService = {
 	getSentAt,
 	getSortByParams,
 	saveToDraft,
+	navigateTo,
 };
-
-const STORAGE_KEY = 'emails';
 
 export const loggedInUser = {
 	email: 'user@appsus.com',
 	fullName: 'Yarin Matmoni',
 };
+
+export const folderList = [
+	{ name: 'inbox', icon: inboxIcon },
+	{ name: 'starred', icon: starredIcon },
+	{ name: 'sent', icon: sentIcon },
+	{ name: 'draft', icon: draftIcon },
+	{ name: 'trash', icon: trashIcon },
+];
+
+const STORAGE_KEY = 'emails';
 
 _createEmails();
 
@@ -188,10 +197,15 @@ function getSentAt(sentAtTimeStamp) {
 	return `${currentDateArray[2] < 10 ? currentDateArray[2].slice(1) : currentDateArray[2]} ${currentDateArray[1]}`;
 }
 
-export const folderList = [
-	{ name: 'inbox', icon: inboxIcon },
-	{ name: 'starred', icon: starredIcon },
-	{ name: 'sent', icon: sentIcon },
-	{ name: 'draft', icon: draftIcon },
-	{ name: 'trash', icon: trashIcon },
-];
+function navigateTo(pathName, dest, id) {
+	switch (dest) {
+		case 'list':
+			return `/email/${pathName.split('/').at(2)}`;
+		case 'details':
+			return `${pathName}/details/${id}`;
+		case 'compose':
+			return `/email/${pathName.split('/').at(-1)}/compose/${id}`;
+		default:
+			return `/email/${pathName.split('/').at(2)}`;
+	}
+}

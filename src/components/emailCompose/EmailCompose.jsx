@@ -48,13 +48,13 @@ export const EmailCompose = () => {
 		event.preventDefault();
 		const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
 		onSaveEmail(emailToSent);
-		navigate(`/email/${pathname.split('/').at(-2)}`);
+		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
 	const onClose = () => {
 		if (!emailId) onSaveEmail(draft, true); // true - save as draft
 		else onSaveEmail(editForm, true);
-		navigate(`/email/${pathname.split('/').at(-2)}`);
+		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
 	const handleViewState = (view) => {

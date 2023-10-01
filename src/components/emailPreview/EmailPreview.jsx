@@ -17,8 +17,8 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 			onUpdateEmail(newEmail);
 		}
 
-		if (emailData.sentAt) navigate(`${pathname}/details/${emailId}`);
-		else navigate(`/email/${pathname.split('/').at(-1)}/compose/${emailId}`);
+		if (emailData.sentAt) navigate(emailService.navigateTo(pathname, 'details', emailId));
+		else navigate(emailService.navigateTo(pathname, 'compose', emailId));
 	};
 
 	const onSetStar = async (event) => {
