@@ -70,17 +70,21 @@ export const EmailIndex = () => {
 		}
 	};
 
-	const onSaveEmail = async (email, saveAsDraft = false) => {
+	const onSendEmail = async (email) => {
 		try {
-			if (saveAsDraft) {
-				if (!email.id) {
-					await emailService.saveToDraft(email);
-				} else {
-					const updateEmail = { ...email, isRead: true };
-					await onUpdateEmail(updateEmail);
-				}
-			} else {
-				await emailService.save(email);
+			await emailService.save(email);
+			loadMails();
+		} catch (error) {
+			console.log('Error:', error);
+		}
+	};
+
+	const onSaveDraftEmail = async (email) => {
+		try {
+			if (!email.id) await emailService.saveToDraft(email); // crate new draft
+			else {
+				const updateDraft = { ...email, isRead: true };
+				await onUpdateEmail(updateDraft); // update the draft + mark as read
 			}
 			loadMails();
 		} catch (error) {
@@ -112,10 +116,11 @@ export const EmailIndex = () => {
 		<div className='email-index'>
 			<div className='aside-filter'>
 				<EmailFolderList
-					onSaveEmail={onSaveEmail}
+					onSendEmail={onSendEmail}
 					filterBy={{ folder: filterBy.folder }}
 					onSetFilter={onSetFilter}
 					unreadCount={unreadCount}
+					onSaveDraftEmail={onSaveDraftEmail}
 				/>
 			</div>
 			<div className='top-filter'>

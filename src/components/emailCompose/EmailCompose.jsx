@@ -13,7 +13,7 @@ export const EmailCompose = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const { emailId } = useParams();
-	const { onSaveEmail } = useOutletContext();
+	const { onSendEmail, onSaveDraftEmail } = useOutletContext();
 	const [editForm, setEditForm] = useState(emailService.getDefaultForm());
 	const [viewState, setViewState] = useState('normal');
 	const [draft, setDraft] = useState(editForm);
@@ -48,13 +48,13 @@ export const EmailCompose = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
-		onSaveEmail(emailToSent);
+		onSendEmail(emailToSent);
 		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
 	const onClose = () => {
-		if (!emailId) onSaveEmail(draft, true); // true - save as draft
-		else onSaveEmail(editForm, true);
+		if (!emailId) onSaveDraftEmail(draft);
+		else onSaveDraftEmail(editForm);
 		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
