@@ -18,6 +18,10 @@
 		}
 	}
 
+	input[type='checkbox'] {
+		margin-right: 15px;
+	}
+
 	.emails-preview-details {
 		.draft {
 			color: $danger-color;
@@ -34,12 +38,12 @@
 		display: grid;
 		grid-auto-flow: column;
 		grid-template-columns: auto 1fr 1fr 1fr auto;
+		gap: 15px;
 
 		img {
 			cursor: pointer;
 			height: 20px;
 			width: 20px;
-			margin: 0 15px;
 		}
 
 		div {
@@ -49,14 +53,14 @@
 
 		.email-options {
 			display: none;
-			grid-auto-flow: column;
-			align-items: center;
-			gap: 15px;
 		}
 
 		&:hover {
 			.email-options {
+				grid-auto-flow: column;
+				align-items: center;
 				display: grid;
+				gap: 15px;
 			}
 
 			.date {
