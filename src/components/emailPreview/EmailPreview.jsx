@@ -8,7 +8,7 @@ import unReadEmail from '../../assets/svgs/unRead.svg';
 import trash from '../../assets/svgs/trash.svg';
 import './emailPreview.scss';
 
-export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
+export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail, onSelectEmail, selectMails }) => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 
@@ -41,15 +41,15 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail }) => {
 		await onRemoveEmail(emailData);
 	};
 
-	const onSelectEmail = (event) => {
-		event.stopPropagation();
-	};
-
 	return (
-		<div className='email-preview' data-is-read={emailData.isRead} onClick={() => onPreviewClick(emailData.id)}>
-			<input type='checkbox' onClick={onSelectEmail} />
-			<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
-			<div className='emails-preview-details'>
+		<div className='email-preview' data-is-read={emailData.isRead}>
+			<input
+				type='checkbox'
+				onChange={() => onSelectEmail(emailData.id)}
+				checked={selectMails.includes(emailData.id)}
+			/>
+			<div className='emails-preview-details' onClick={() => onPreviewClick(emailData.id)}>
+				<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />
 				{!emailData.sentAt ? <div className='draft'>Draft</div> : <div className='from-email'>{emailData.from}</div>}
 				<div className='subject'>{emailData.subject || '[no subject]'}</div>
 				<div className='body'>{emailData.body || '[no body]'}</div>

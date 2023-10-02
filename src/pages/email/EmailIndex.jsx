@@ -14,6 +14,7 @@ export const EmailIndex = () => {
 	const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams, folder));
 	const [sortBy, setSortBy] = useState(emailService.getSortByParams(searchParams));
 	const [unreadCount, setUnreadCount] = useState(null);
+	const [selectMails, setSelectMails] = useState([]);
 
 	useEffect(() => {
 		onUpdateUnreadEmail();
@@ -95,6 +96,21 @@ export const EmailIndex = () => {
 		}
 	};
 
+	const onSelectEmail = (emailId) => {
+		if (!selectMails.includes(emailId)) {
+			setSelectMails((prevSelected) => [...prevSelected, emailId]);
+		} else {
+			setSelectMails((prevSelected) => prevSelected.filter((emailSelectedId) => emailSelectedId != emailId));
+		}
+	};
+
+	const onSelectAllEmails = () => {
+		if (selectMails.length === 0) emails.map((email) => setSelectMails((prev) => [...prev, email.id]));
+		else setSelectMails([]);
+	};
+
+	console.log(selectMails);
+
 	if (!emails) return <div>Loading..</div>;
 	return (
 		<div className='email-index'>
@@ -115,13 +131,20 @@ export const EmailIndex = () => {
 					onSetFilter={onSetFilter}
 					sortBy={sortBy}
 					onSetSort={onSetSort}
+					onSelectAllEmails={onSelectAllEmails}
 				/>
 			</div>
 			<div className='main'>
 				{pathname.includes('details') ? (
 					<EmailDetails onRemoveEmail={onRemoveEmail} />
 				) : (
-					<EmailList emails={emails} onRemoveEmail={onRemoveEmail} onUpdateEmail={onUpdateEmail} />
+					<EmailList
+						emails={emails}
+						onRemoveEmail={onRemoveEmail}
+						onUpdateEmail={onUpdateEmail}
+						onSelectEmail={onSelectEmail}
+						selectMails={selectMails}
+					/>
 				)}
 			</div>
 		</div>

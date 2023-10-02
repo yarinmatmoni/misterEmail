@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import expandArrow from '../../assets/svgs/expand-arrow.svg';
 import './emailFilter.scss';
 
-export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort }) => {
+export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelectAllEmails }) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const [sortByToEdit, setSortByToEdit] = useState(sortBy);
 
@@ -36,7 +36,7 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort }) => {
 				autoComplete='off'
 			/>
 			<div className='checkbox-filter-sort'>
-				<input type='checkbox' />
+				<input type='checkbox' onChange={onSelectAllEmails} />
 				<div className='checkbox-filter'>
 					<input
 						type='checkbox'

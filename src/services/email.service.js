@@ -104,7 +104,10 @@ function save(emailToSave) {
 }
 
 function saveToDraft(emailToSave) {
-	return storageService.post(STORAGE_KEY, createEmail(emailToSave.subject, emailToSave.body, null, null));
+	return storageService.post(
+		STORAGE_KEY,
+		createEmail(emailToSave.subject, emailToSave.body, null, null, null, null, emailToSave.to),
+	);
 }
 
 function createEmail(
@@ -114,8 +117,7 @@ function createEmail(
 	isStarred = false,
 	sentAt = null,
 	from = loggedInUser.email,
-	to = '',
-	isSelected = false,
+	to,
 ) {
 	return {
 		id: utilService.makeId(),
@@ -127,7 +129,6 @@ function createEmail(
 		removedAt: null,
 		from: from,
 		to: to,
-		isSelected: isSelected,
 	};
 }
 
