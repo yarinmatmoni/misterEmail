@@ -5,6 +5,7 @@ import './emailFilter.scss';
 export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelectAllEmails }) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const [sortByToEdit, setSortByToEdit] = useState(sortBy);
+	const [isSelectedAll, setIsSelectedAll] = useState(false);
 
 	useEffect(() => {
 		onSetFilter(filterByToEdit);
@@ -13,6 +14,10 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelect
 	useEffect(() => {
 		onSetSort(sortByToEdit);
 	}, [sortByToEdit]);
+
+	useEffect(() => {
+		onSelectAllEmails(isSelectedAll);
+	}, [isSelectedAll]);
 
 	const handleChange = (event) => {
 		let { value, name: filedName } = event.target;
@@ -23,6 +28,10 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelect
 		let { value, name: filedName } = event.target;
 		value = +value * -1;
 		setSortByToEdit((prevSort) => ({ ...prevSort, [filedName]: value }));
+	};
+
+	const handleOnCheck = () => {
+		setIsSelectedAll(!isSelectedAll);
 	};
 
 	return (
@@ -36,7 +45,7 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelect
 				autoComplete='off'
 			/>
 			<div className='checkbox-filter-sort'>
-				<input type='checkbox' onChange={onSelectAllEmails} />
+				<input type='checkbox' onChange={handleOnCheck} checked={isSelectedAll} />
 				<div className='checkbox-filter'>
 					<input
 						type='checkbox'

@@ -17,6 +17,7 @@ export const emailService = {
 	getSortByParams,
 	saveToDraft,
 	navigateTo,
+	addParams,
 };
 
 export const loggedInUser = {
@@ -132,33 +133,6 @@ function createEmail(
 	};
 }
 
-function _createEmails() {
-	let emails = utilService.loadFromStorage(STORAGE_KEY);
-	if (!emails || !emails.length) {
-		emails = [];
-
-		for (let i = 0; i < 20; i++) {
-			let mail = createEmail('Miss You!' + i, 'Body - Miss You' + i, null, null, Math.floor(Date.now() / 1000));
-			emails.push(mail);
-		}
-
-		for (let i = 0; i < 20; i++) {
-			let mail = createEmail(
-				'Miss You!' + i,
-				'Body - Miss You' + i,
-				null,
-				null,
-				Math.floor(Date.now() / 1000),
-				'yarinmatmoni@gmail.com',
-				loggedInUser.email,
-			);
-			emails.push(mail);
-		}
-
-		utilService.saveToStorage(STORAGE_KEY, emails);
-	}
-}
-
 function getFilterFromParams(searchParams, folder) {
 	const filterBy = {
 		inputSearch: searchParams.get('inputSearch') || '',
@@ -210,5 +184,39 @@ function navigateTo(pathName, dest, id) {
 			return `/email/${pathName.split('/').at(-1)}/compose/${id}`;
 		default:
 			return `/email/${pathName.split('/').at(2)}`;
+	}
+}
+
+function addParams(searchParams) {
+	return {
+		sub: searchParams.get('sub'),
+		to: searchParams.get('to'),
+	};
+}
+
+function _createEmails() {
+	let emails = utilService.loadFromStorage(STORAGE_KEY);
+	if (!emails || !emails.length) {
+		emails = [];
+
+		for (let i = 0; i < 20; i++) {
+			let mail = createEmail('Miss You!' + i, 'Body - Miss You' + i, null, null, Math.floor(Date.now() / 1000));
+			emails.push(mail);
+		}
+
+		for (let i = 0; i < 20; i++) {
+			let mail = createEmail(
+				'Miss You!' + i,
+				'Body - Miss You' + i,
+				null,
+				null,
+				Math.floor(Date.now() / 1000),
+				'yarinmatmoni@gmail.com',
+				loggedInUser.email,
+			);
+			emails.push(mail);
+		}
+
+		utilService.saveToStorage(STORAGE_KEY, emails);
 	}
 }

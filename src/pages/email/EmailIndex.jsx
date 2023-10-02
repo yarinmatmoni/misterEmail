@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { EmailFilter, EmailList, EmailFolderList } from '../../components/index';
-import { emailService, loggedInUser } from '../../services/email.service';
+import { emailService } from '../../services/email.service';
 import { showUserMsg } from '../../services/event-bus.service';
 import { EmailDetails } from '../emailDetails/EmailDetails';
 import './emailIndex.scss';
@@ -21,11 +21,7 @@ export const EmailIndex = () => {
 	}, [emails]);
 
 	useEffect(() => {
-		const addParams = {};
-		for (const [key, value] of searchParams.entries()) {
-			addParams[key] = value;
-		}
-
+		const addParams = emailService.addParams(searchParams);
 		setSearchParams({ ...filterBy, ...sortBy, ...addParams });
 		loadMails();
 	}, [filterBy, sortBy]);
@@ -40,8 +36,8 @@ export const EmailIndex = () => {
 
 	const loadMails = async () => {
 		try {
-			const emailsResponse = await emailService.query(filterBy, sortBy);
-			setEmails(emailsResponse);
+			const emails = await emailService.query(filterBy, sortBy);
+			setEmails(emails);
 		} catch (error) {
 			console.log('error:', error);
 		}
@@ -94,27 +90,22 @@ export const EmailIndex = () => {
 
 	const onUpdateUnreadEmail = async () => {
 		try {
-			const unReadEmailsResponse = await emailService.query();
-			setUnreadCount(unReadEmailsResponse.filter((email) => !email.isRead && email.from !== loggedInUser.email).length);
+			const allEmails = await emailService.query({ inputSearch: '', mailStatus: 'all', folder: 'inbox' });
+			setUnreadCount(allEmails.filter((email) => !email.isRead).length);
 		} catch (error) {
 			console.log('error:', error);
 		}
 	};
 
 	const onSelectEmail = (emailId) => {
-		if (!selectMails.includes(emailId)) {
-			setSelectMails((prevSelected) => [...prevSelected, emailId]);
-		} else {
-			setSelectMails((prevSelected) => prevSelected.filter((emailSelectedId) => emailSelectedId != emailId));
-		}
+		if (!selectMails.includes(emailId)) setSelectMails((prevSelected) => [...prevSelected, emailId]);
+		else setSelectMails((prevSelected) => prevSelected.filter((emailSelectedId) => emailSelectedId != emailId));
 	};
 
-	const onSelectAllEmails = () => {
-		if (selectMails.length === 0) emails.map((email) => setSelectMails((prev) => [...prev, email.id]));
+	const onSelectAllEmails = (isSelectedAll) => {
+		if (isSelectedAll) emails.map((email) => setSelectMails((prev) => [...prev, email.id]));
 		else setSelectMails([]);
 	};
-
-	console.log(selectMails);
 
 	if (!emails) return <div>Loading..</div>;
 	return (
