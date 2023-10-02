@@ -60,7 +60,7 @@ async function query(filterBy, sortBy) {
 				break;
 			}
 			default: {
-				emails = emails.filter((email) => !email.removedAt && email.from !== loggedInUser.email);
+				emails = emails.filter((email) => !email.removedAt && email.from !== loggedInUser.email && email.sentAt);
 				break;
 			}
 		}
