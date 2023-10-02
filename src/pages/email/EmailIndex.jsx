@@ -21,7 +21,12 @@ export const EmailIndex = () => {
 	}, [emails]);
 
 	useEffect(() => {
-		setSearchParams({ ...filterBy, ...sortBy });
+		const addParams = {};
+		for (const [key, value] of searchParams.entries()) {
+			addParams[key] = value;
+		}
+
+		setSearchParams({ ...filterBy, ...sortBy, ...addParams });
 		loadMails();
 	}, [filterBy, sortBy]);
 

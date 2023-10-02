@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext, useParams, useSearchParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import close from '../../assets/svgs/close.svg';
 import openFullScreen from '../../assets/svgs/open_in_full.svg';
@@ -18,6 +18,7 @@ export const EmailCompose = () => {
 	const [viewState, setViewState] = useState('normal');
 	const [draft, setDraft] = useState(editForm);
 	const [title, setTitle] = useState('New Message');
+	const [searchParams] = useSearchParams();
 
 	useEffect(() => {
 		timeoutId.current = setTimeout(() => {
@@ -99,7 +100,7 @@ export const EmailCompose = () => {
 							type='email'
 							autoComplete='off'
 							id='to'
-							value={editForm.to}
+							value={searchParams.get('to') || editForm.to}
 							onChange={handleOnChange}
 							name='to'
 							required
@@ -111,7 +112,7 @@ export const EmailCompose = () => {
 							type='text'
 							autoComplete='off'
 							id='subject'
-							value={editForm.subject}
+							value={searchParams.get('sub') || editForm.subject}
 							onChange={handleOnChange}
 							name='subject'
 						/>
