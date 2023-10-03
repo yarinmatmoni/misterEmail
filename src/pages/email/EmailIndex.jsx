@@ -133,6 +133,7 @@ export const EmailIndex = () => {
 					sortBy={sortBy}
 					onSetSort={onSetSort}
 					onSelectAllEmails={onSelectAllEmails}
+					selectedMailsSize={selectMails.length}
 				/>
 			</div>
 			<div className='main'>

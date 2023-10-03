@@ -42,7 +42,11 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail, onSelect
 	};
 
 	return (
-		<div className='email-preview' data-is-read={emailData.isRead}>
+		<div
+			className='email-preview'
+			data-is-read={emailData.isRead}
+			data-is-selected={selectMails.includes(emailData.id)}
+		>
 			<input
 				type='checkbox'
 				onChange={() => onSelectEmail(emailData.id)}

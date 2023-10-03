@@ -18,6 +18,10 @@
 		}
 	}
 
+	&[data-is-selected='true'] {
+		background-color: $background-color-selected;
+	}
+
 	input[type='checkbox'] {
 		margin-right: 15px;
 	}

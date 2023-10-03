@@ -48,6 +48,19 @@
 				margin-left: 10px;
 			}
 		}
+
+		.multi-select-options {
+			display: grid;
+			grid-auto-flow: column;
+			align-items: center;
+			gap: 12px;
+
+			img {
+				cursor: pointer;
+				height: 18px;
+				width: 18px;
+			}
+		}
 	}
 
 	.sort-container {

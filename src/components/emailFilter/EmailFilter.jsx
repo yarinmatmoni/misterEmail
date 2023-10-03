@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import expandArrow from '../../assets/svgs/expand-arrow.svg';
+import trash from '../../assets/svgs/trash.svg';
+import star from '../../assets/svgs/empty-star.svg';
+import unRead from '../../assets/svgs/unRead.svg';
 import './emailFilter.scss';
 
-export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelectAllEmails }) => {
+export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelectAllEmails, selectedMailsSize }) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const [sortByToEdit, setSortByToEdit] = useState(sortBy);
 	const [isSelectedAll, setIsSelectedAll] = useState(false);
@@ -46,6 +49,13 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelect
 			/>
 			<div className='checkbox-filter-sort'>
 				<input type='checkbox' onChange={handleOnCheck} checked={isSelectedAll} />
+				{selectedMailsSize > 0 && (
+					<div className='multi-select-options'>
+						<img src={trash} alt='Delete' />
+						<img src={star} alt='Empty star' />
+						<img src={unRead} alt='UnRead Email' />
+					</div>
+				)}
 				<div className='checkbox-filter'>
 					<input
 						type='checkbox'
