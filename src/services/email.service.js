@@ -27,11 +27,11 @@ export const loggedInUser = {
 };
 
 export const folderList = [
-	{ name: 'inbox', icon: inboxIcon },
-	{ name: 'starred', icon: starredIcon },
-	{ name: 'sent', icon: sentIcon },
-	{ name: 'draft', icon: draftIcon },
-	{ name: 'trash', icon: trashIcon },
+	{ name: 'inbox', icon: inboxIcon, text: 'Inbox' },
+	{ name: 'starred', icon: starredIcon, text: 'Starred' },
+	{ name: 'sent', icon: sentIcon, text: 'Sent' },
+	{ name: 'draft', icon: draftIcon, text: 'Draft' },
+	{ name: 'trash', icon: trashIcon, text: 'Trash' },
 ];
 
 const STORAGE_KEY = 'emails';

@@ -38,7 +38,7 @@ export const EmailFolderList = ({ filterBy, onSetFilter, unreadCount, onSendEmai
 						onClick={() => handleSelectFolder(folder.name)}
 					>
 						<img src={folder.icon} alt={folder.name} />
-						{folder.name}
+						{folder.text}
 						{folder.name === 'inbox' && <span>{unreadCount}</span>}
 					</li>
 				))}
