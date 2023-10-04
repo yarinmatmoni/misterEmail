@@ -5,7 +5,15 @@ import star from '../../assets/svgs/empty-star.svg';
 import unRead from '../../assets/svgs/unRead.svg';
 import './emailFilter.scss';
 
-export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelectAllEmails, selectedMailsSize }) => {
+export const EmailFilter = ({
+	filterBy,
+	onSetFilter,
+	sortBy,
+	onSetSort,
+	onSelectAllEmails,
+	selectedMailsSize,
+	updateAllSelectedEmails,
+}) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const [sortByToEdit, setSortByToEdit] = useState(sortBy);
 	const [isSelectedAll, setIsSelectedAll] = useState(false);
@@ -52,7 +60,7 @@ export const EmailFilter = ({ filterBy, onSetFilter, sortBy, onSetSort, onSelect
 				{selectedMailsSize > 0 && (
 					<div className='multi-select-options'>
 						<img src={trash} alt='Delete' />
-						<img src={star} alt='Empty star' />
+						<img src={star} alt='Empty star' onClick={() => updateAllSelectedEmails({ isStarred: true })} />
 						<img src={unRead} alt='UnRead Email' />
 					</div>
 				)}

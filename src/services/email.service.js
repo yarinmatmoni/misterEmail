@@ -18,6 +18,7 @@ export const emailService = {
 	saveToDraft,
 	navigateTo,
 	addParams,
+	updateMany,
 };
 
 export const loggedInUser = {
@@ -192,6 +193,16 @@ function addParams(searchParams) {
 		sub: searchParams.get('sub'),
 		to: searchParams.get('to'),
 	};
+}
+
+//TODO:
+async function updateMany(emails, updateFields) {
+	return await Promise.all(
+		emails.map(async (email) => {
+			const updateEmail = { ...email, ...updateFields };
+			return await save(updateEmail);
+		}),
+	);
 }
 
 function _createEmails() {

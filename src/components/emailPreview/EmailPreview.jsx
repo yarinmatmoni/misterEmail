@@ -49,8 +49,8 @@ export const EmailPreview = ({ emailData, onRemoveEmail, onUpdateEmail, onSelect
 		>
 			<input
 				type='checkbox'
-				onChange={() => onSelectEmail(emailData.id)}
-				checked={selectMails.includes(emailData.id)}
+				onChange={() => onSelectEmail(emailData)}
+				checked={selectMails.some((email) => email.id === emailData.id)}
 			/>
 			<div className='emails-preview-details' onClick={() => onPreviewClick(emailData.id)}>
 				<img src={emailData.isStarred ? fullStar : emptyStar} alt='star' onClick={onSetStar} />

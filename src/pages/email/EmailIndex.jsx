@@ -97,7 +97,7 @@ export const EmailIndex = () => {
 			const allEmails = await emailService.query({ inputSearch: '', mailStatus: 'all', folder: 'inbox' });
 			setUnreadCount(allEmails.filter((email) => !email.isRead).length);
 		} catch (error) {
-			console.log('error:', error);
+			console.log('Error:', error);
 		}
 	};
 
@@ -107,8 +107,18 @@ export const EmailIndex = () => {
 	};
 
 	const onSelectAllEmails = (isSelectedAll) => {
-		if (isSelectedAll) emails.map((email) => setSelectMails((prev) => [...prev, email.id]));
+		if (isSelectedAll) emails.map((email) => setSelectMails((prev) => [...prev, email]));
 		else setSelectMails([]);
+	};
+
+	//////////////////////////////////////////////////////////////////////////
+	const updateAllSelectedEmails = async (updateFields) => {
+		try {
+			const updateEmails = await emailService.updateMany(selectMails, updateFields);
+			console.log(updateEmails);
+		} catch (error) {
+			console.log('Error:', error);
+		}
 	};
 
 	if (!emails) return <div>Loading..</div>;
@@ -134,6 +144,7 @@ export const EmailIndex = () => {
 					onSetSort={onSetSort}
 					onSelectAllEmails={onSelectAllEmails}
 					selectedMailsSize={selectMails.length}
+					updateAllSelectedEmails={updateAllSelectedEmails}
 				/>
 			</div>
 			<div className='main'>
