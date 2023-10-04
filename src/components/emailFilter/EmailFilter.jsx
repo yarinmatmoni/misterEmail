@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import expandArrow from '../../assets/svgs/expand-arrow.svg';
 import trash from '../../assets/svgs/trash.svg';
 import star from '../../assets/svgs/empty-star.svg';
@@ -17,6 +18,7 @@ export const EmailFilter = ({
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const [sortByToEdit, setSortByToEdit] = useState(sortBy);
 	const [isSelectedAll, setIsSelectedAll] = useState(false);
+	const { folder } = useParams();
 
 	useEffect(() => {
 		onSetFilter(filterByToEdit);
@@ -29,6 +31,10 @@ export const EmailFilter = ({
 	useEffect(() => {
 		onSelectAllEmails(isSelectedAll);
 	}, [isSelectedAll]);
+
+	useEffect(() => {
+		setIsSelectedAll(false);
+	}, [folder]);
 
 	const handleChange = (event) => {
 		let { value, name: filedName } = event.target;
