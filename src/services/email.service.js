@@ -189,10 +189,12 @@ function navigateTo(pathName, dest, id) {
 }
 
 function addParams(searchParams) {
-	return {
-		sub: searchParams.get('sub'),
-		to: searchParams.get('to'),
-	};
+	if (searchParams.get('sub') && searchParams.get('to')) {
+		return {
+			sub: searchParams.get('sub'),
+			to: searchParams.get('to'),
+		};
+	}
 }
 
 //TODO:

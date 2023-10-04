@@ -90,3 +90,18 @@
 		}
 	}
 }
+
+@include mobile {
+	.email-filter-sort-container {
+		justify-content: center;
+		height: 60px;
+
+		input[type='text'] {
+			width: 300px;
+		}
+
+		.checkbox-filter-sort {
+			display: none;
+		}
+	}
+}

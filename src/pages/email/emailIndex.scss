@@ -1,20 +1,28 @@
-@import "../../assets/css/index.scss";
+@import '../../assets/css/index.scss';
 
 .email-index {
-  display: grid;
-  grid-template-columns: 256px 1fr;
-  grid-template-rows: $email-filter 1fr;
-  grid-template-areas: "af tf" "af m";
+	display: grid;
+	grid-template-columns: 256px 1fr;
+	grid-template-rows: $email-filter 1fr;
+	grid-template-areas: 'af tf' 'af m';
+	transition: all 0.3s ease-in-out;
 
-  .top-filter {
-    grid-area: tf;
-  }
+	.top-filter {
+		grid-area: tf;
+	}
 
-  .aside-filter {
-    grid-area: af;
-  }
+	.aside-filter {
+		grid-area: af;
+	}
 
-  .main {
-    grid-area: m;
-  }
+	.main {
+		grid-area: m;
+	}
+}
+
+@include mobile {
+	.email-index {
+		grid-template-columns: 0 1fr;
+		grid-template-rows: auto 1fr;
+	}
 }

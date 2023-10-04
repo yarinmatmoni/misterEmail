@@ -87,3 +87,15 @@
 		}
 	}
 }
+
+@include mobile {
+	.email-folder-list {
+		.email-compose {
+			display: initial;
+			position: fixed;
+			z-index: 10;
+			right: 20px;
+			bottom: 20px;
+		}
+	}
+}

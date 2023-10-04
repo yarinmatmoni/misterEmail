@@ -1,7 +1,13 @@
-@import "../../assets/css/index.scss";
+@import '../../assets/css/index.scss';
 
 .email-list {
-  background-color: $background-color-white;
-  overflow: auto;
-  height: calc(100vh - ($email-filter + $header-height));
+	background-color: $background-color-white;
+	overflow: auto;
+	height: calc(100vh - ($email-filter + $header-height));
+}
+
+@include mobile {
+	.email-list {
+		height: calc(100vh - 60px);
+	}
 }

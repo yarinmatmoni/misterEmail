@@ -85,11 +85,13 @@ export const EmailCompose = () => {
 						src={viewState === 'minimize' ? maximize : minimize}
 						alt='minimize'
 						onClick={() => handleViewState('minimize')}
+						className='min'
 					/>
 					<img
 						src={viewState === 'fullScreen' ? closeFullScreen : openFullScreen}
 						alt='full screen'
 						onClick={() => handleViewState('fullScreen')}
+						className='full'
 					/>
 					<img onClick={onClose} src={close} alt='close' />
 				</div>
