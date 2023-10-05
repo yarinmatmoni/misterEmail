@@ -24,5 +24,21 @@
 	.email-index {
 		grid-template-columns: 0 1fr;
 		grid-template-rows: auto 1fr;
+
+		&[data-menu-open='true'] {
+			.aside-filter {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 300px;
+				height: calc(100vh - ($header-height + 60px));
+			}
+		}
+
+		.top-filter {
+			background-color: $background-color;
+			display: flex;
+			justify-content: space-evenly;
+		}
 	}
 }

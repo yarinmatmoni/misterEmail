@@ -1,0 +1,36 @@
+@import '../../assets/css/index.scss';
+
+.hamburger {
+	display: none;
+}
+
+@include mobile {
+	.hamburger {
+		display: block;
+		cursor: pointer;
+		align-self: center;
+
+		.line {
+			display: block;
+			width: 25px;
+			height: 3px;
+			margin: 5px auto;
+			background-color: $text-color;
+			transition: all 0.3s ease-in-out;
+		}
+
+		&[data-open='true'] {
+			.line:nth-child(1) {
+				transform: translateY(8px) rotate(45deg);
+			}
+
+			.line:nth-child(2) {
+				opacity: 0;
+			}
+
+			.line:nth-child(3) {
+				transform: translateY(-8px) rotate(-45deg);
+			}
+		}
+	}
+}

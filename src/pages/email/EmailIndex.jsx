@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { EmailFilter, EmailList, EmailFolderList } from '../../components/index';
+import { EmailFilter, EmailList, EmailFolderList, Hamburger } from '../../components/index';
 import { emailService } from '../../services/email.service';
 import { showUserMsg } from '../../services/event-bus.service';
 import { EmailDetails } from '../emailDetails/EmailDetails';
@@ -15,6 +15,7 @@ export const EmailIndex = () => {
 	const [sortBy, setSortBy] = useState(emailService.getSortByParams(searchParams));
 	const [unreadCount, setUnreadCount] = useState(null);
 	const [selectMails, setSelectMails] = useState([]);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
 		onUpdateUnreadEmail();
@@ -111,6 +112,10 @@ export const EmailIndex = () => {
 		else setSelectMails([]);
 	};
 
+	const onToggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
 	//////////////////////////////////////////////////////////////////////////
 	const updateAllSelectedEmails = async (updateFields) => {
 		try {
@@ -123,7 +128,7 @@ export const EmailIndex = () => {
 
 	if (!emails) return <div>Loading..</div>;
 	return (
-		<div className='email-index'>
+		<div className='email-index' data-menu-open={isMenuOpen}>
 			<div className='aside-filter'>
 				<EmailFolderList
 					onSendEmail={onSendEmail}
@@ -131,9 +136,11 @@ export const EmailIndex = () => {
 					onSetFilter={onSetFilter}
 					unreadCount={unreadCount}
 					onSaveDraftEmail={onSaveDraftEmail}
+					onToggleMenu={onToggleMenu}
 				/>
 			</div>
 			<div className='top-filter'>
+				<Hamburger onToggleMenu={onToggleMenu} isMenuOpen={isMenuOpen} />
 				<EmailFilter
 					filterBy={{
 						inputSearch: filterBy.inputSearch,

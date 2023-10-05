@@ -93,11 +93,13 @@
 
 @include mobile {
 	.email-filter-sort-container {
-		justify-content: center;
+		justify-content: space-evenly;
+		display: flex;
 		height: 60px;
+		width: 80%;
 
 		input[type='text'] {
-			width: 300px;
+			width: 100%;
 		}
 
 		.checkbox-filter-sort {

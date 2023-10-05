@@ -4,7 +4,14 @@ import { folderList } from '../../services/email.service';
 import newIcon from '../../assets/svgs/edit.svg';
 import './emailFolderList.scss';
 
-export const EmailFolderList = ({ filterBy, onSetFilter, unreadCount, onSendEmail, onSaveDraftEmail }) => {
+export const EmailFolderList = ({
+	filterBy,
+	onSetFilter,
+	unreadCount,
+	onSendEmail,
+	onSaveDraftEmail,
+	onToggleMenu,
+}) => {
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
@@ -15,6 +22,7 @@ export const EmailFolderList = ({ filterBy, onSetFilter, unreadCount, onSendEmai
 
 	const handleSelectFolder = (folderName) => {
 		setFilterByToEdit((prevFilter) => ({ ...prevFilter, folder: folderName }));
+		onToggleMenu(false);
 		navigate(`/email/${folderName}`);
 	};
 
