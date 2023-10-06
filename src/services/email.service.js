@@ -19,6 +19,7 @@ export const emailService = {
 	navigateTo,
 	addParams,
 	updateMany,
+	getUserLCordinates,
 };
 
 export const loggedInUser = {
@@ -50,7 +51,7 @@ async function query(filterBy, sortBy) {
 				break;
 			}
 			case 'sent': {
-				emails = emails.filter((email) => email.from === loggedInUser.email && email.sentAt);
+				emails = emails.filter((email) => email.from === loggedInUser.email && email.sentAt && !email.removedAt);
 				break;
 			}
 			case 'trash': {
@@ -100,7 +101,17 @@ function save(emailToSave) {
 	} else {
 		return storageService.post(
 			STORAGE_KEY,
-			createEmail(emailToSave.subject, emailToSave.body, null, null, Math.floor(Date.now() / 1000)),
+			createEmail(
+				emailToSave.subject,
+				emailToSave.body,
+				null,
+				null,
+				Math.floor(Date.now() / 1000),
+				emailToSave.from,
+				emailToSave.to,
+				emailToSave.lat,
+				emailToSave.lng,
+			),
 		);
 	}
 }
@@ -120,6 +131,8 @@ function createEmail(
 	sentAt = null,
 	from = loggedInUser.email,
 	to,
+	lat = null,
+	lng = null,
 ) {
 	return {
 		id: utilService.makeId(),
@@ -131,6 +144,8 @@ function createEmail(
 		removedAt: null,
 		from: from,
 		to: to,
+		lat: lat,
+		lng: lng,
 	};
 }
 
@@ -195,6 +210,25 @@ function addParams(searchParams) {
 			to: searchParams.get('to'),
 		};
 	}
+}
+
+function getUserLCordinates() {
+	return new Promise((resolve, reject) => {
+		if ('geolocation' in navigator) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const lat = position.coords.latitude;
+					const lng = position.coords.longitude;
+					resolve({ lat, lng });
+				},
+				(error) => {
+					reject(error);
+				},
+			);
+		} else {
+			reject(new Error('Geolocation is not supported in this browser.'));
+		}
+	});
 }
 
 //TODO:

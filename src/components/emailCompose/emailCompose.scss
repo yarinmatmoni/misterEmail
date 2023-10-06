@@ -63,6 +63,17 @@
 			font-weight: bold;
 		}
 
+		.location {
+			margin: 10px 0;
+			width: fit-content;
+			display: flex;
+
+			label {
+				border: none;
+				margin-left: 5px;
+			}
+		}
+
 		button {
 			background-color: $background-color-btn;
 			color: white;

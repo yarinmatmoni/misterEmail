@@ -19,6 +19,7 @@ export const EmailCompose = () => {
 	const [draft, setDraft] = useState(editForm);
 	const [title, setTitle] = useState('New Message');
 	const [searchParams] = useSearchParams();
+	const [isLocation, setIsLocation] = useState(false);
 
 	useEffect(() => {
 		timeoutId.current = setTimeout(() => {
@@ -47,8 +48,14 @@ export const EmailCompose = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
-		onSendEmail(emailToSent);
+		if (isLocation) {
+			const { lat, lng } = await emailService.getUserLCordinates();
+			const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000), lat, lng };
+			onSendEmail(emailToSent);
+		} else {
+			const emailToSent = { ...editForm, sentAt: Math.floor(Date.now() / 1000) };
+			onSendEmail(emailToSent);
+		}
 		navigate(emailService.navigateTo(pathname, 'list'));
 	};
 
@@ -120,6 +127,16 @@ export const EmailCompose = () => {
 						/>
 					</label>
 					<textarea value={editForm.body} onChange={handleOnChange} name='body' />
+					<div className='location'>
+						<input
+							type='checkbox'
+							name='location'
+							id='location'
+							checked={isLocation}
+							onChange={() => setIsLocation(!isLocation)}
+						/>
+						<label htmlFor='location'>Add my Location</label>
+					</div>
 					<button>Send</button>
 				</form>
 			</div>

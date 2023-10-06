@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { GoogleMap } from '../../components/googleMap/GoogleMap';
 import { useParams } from 'react-router-dom';
 import { emailService } from '../../services/email.service';
 import trash from '../../assets/svgs/trash.svg';
@@ -53,6 +54,7 @@ export const EmailDetails = ({ onRemoveEmail }) => {
 							<div>{emailService.getSentAt(email.sentAt)}</div>
 						</div>
 						<div className='body-email'>{email.body}</div>
+						{email.lat && email.lng && <GoogleMap lat={email.lat} lng={email.lng} />}
 					</div>
 				</div>
 			)}

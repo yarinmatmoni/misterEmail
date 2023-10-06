@@ -1,6 +1,6 @@
 import './hamburger.scss';
 
-export function Hamburger({ onToggleMenu, isMenuOpen }) {
+export const Hamburger = ({ onToggleMenu, isMenuOpen }) => {
 	return (
 		<div className='hamburger' onClick={onToggleMenu} data-open={isMenuOpen}>
 			<span className='line' />
@@ -8,4 +8,4 @@ export function Hamburger({ onToggleMenu, isMenuOpen }) {
 			<span className='line' />
 		</div>
 	);
-}
+};
